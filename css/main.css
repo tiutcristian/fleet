@@ -1,0 +1,33 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin-top: 5%;
+    background-color: lightgray;
+}
+
+h3 {
+    margin-left: 40%;
+}
+
+input {
+    background-color: white;
+}
+
+input[type=submit] {
+    background-color: gray;
+    text-align: center;
+    color: lightgray;
+}
+
+input,
+input[type=submit] {
+    padding: 10px;
+    border-radius: 10px;
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 10px;
+}
+
+input[type=submit]:hover {
+    background-color: rgb(102, 102, 102);
+    cursor: pointer;
+}
