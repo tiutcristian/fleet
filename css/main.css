@@ -31,3 +31,15 @@ input[type=submit]:hover {
     background-color: rgb(102, 102, 102);
     cursor: pointer;
 }
+
+.form-error {
+    margin-left: 40%;
+    color: red;
+    text-decoration: solid;
+}
+
+.form-sucess {
+    margin-left: 40%;
+    color: rgb(0, 190, 0);
+    text-decoration: solid;
+}
