@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $_SESSION["errors_login"] = $errors;
 
-            header("Location: ../index.php");
+            header("Location: ../login.php");
             die();
         }
 
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         $_SESSION["last_regeneration"] = time();
         
-        header("Location: ../index.php?login=success");
+        header("Location: ../index.php");
         $pdo = null;
         $stmt = null;
         die();
@@ -61,6 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 }
 else
 {
-    header("Location: ../index.php");
+    header("Location: ../login.php");
     die();
 }

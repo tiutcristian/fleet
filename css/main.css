@@ -43,3 +43,18 @@ input[type=submit]:hover {
     color: rgb(0, 190, 0);
     text-decoration: solid;
 }
+
+button {
+    background-color: aquamarine;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: rgb(10, 255, 173);
+    cursor: pointer;
+}
