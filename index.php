@@ -1,6 +1,7 @@
 <?php
-require_once 'includes/signup_view-inc.php';
 require_once 'includes/config_session-inc.php';
+require_once 'includes/signup_view-inc.php';
+require_once 'includes/login_view-inc.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,13 +15,33 @@ require_once 'includes/config_session-inc.php';
 </head>
 <body>
 
-    <h3>Login</h3>
-    <br>
-    <form action="includes/login-inc.php" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="pwd" placeholder="Password">
-        <input type="submit" value="Login">
-    </form>
+    <h3>
+        <?php
+        output_username();
+        ?>
+    </h3>
+
+    <br><br><br>
+
+    <?php if (!isset($_SESSION["user_id"])) { ?>
+            <h3>Login</h3>
+            <br>
+            <form action="includes/login-inc.php" method="post">
+                <input type="text" name="username" placeholder="Username">
+                <input type="password" name="pwd" placeholder="Password">
+                <input type="submit" value="Login">
+            </form>
+    <?php } else { ?>
+        <h3>Logout</h3>
+        <br>
+        <form action="includes/logout-inc.php" method="post">
+            <input type="submit" value="Logout">
+        </form>
+    <?php } ?>
+
+    <?php
+    check_login_errors();
+    ?>
 
     <br><br><br>
 

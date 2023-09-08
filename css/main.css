@@ -38,7 +38,7 @@ input[type=submit]:hover {
     text-decoration: solid;
 }
 
-.form-sucess {
+.form-success {
     margin-left: 40%;
     color: rgb(0, 190, 0);
     text-decoration: solid;
