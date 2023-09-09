@@ -22,15 +22,36 @@ require_once 'includes/login_view-inc.php';
         
     <br><br><br>
 
-    <form action="login.php">
-        <button>Login</button>
-    </form>
+    <?php
+    if (!isset($_SESSION["user_id"]))
+    {
+    ?>
+        <form action="login.php">
+            <button>Login</button>
+        </form>
 
-    <br><br><br>
+        <br><br><br>
 
-    <form action="signup.php">
-        <button>Signup</button>
-    </form>
+        <form action="signup.php">
+            <button>Signup</button>
+        </form>
+    <?php
+    }
+    else
+    {
+    ?>
+        <form action="cars.php">
+            <button>Go to cars</button>
+        </form>
+
+        <br><br><br>
+        
+        <form action="includes/logout-inc.php" method="post">
+            <input type="submit" value="Logout">
+        </form>
+    <?php
+    }
+    ?>
     
 </body>
 </html>
