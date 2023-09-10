@@ -58,3 +58,11 @@ button:hover {
     background-color: rgb(10, 255, 173);
     cursor: pointer;
 }
+
+.error {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: lightcoral;
+    text-align: center;
+    color: brown;
+}

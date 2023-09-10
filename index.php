@@ -26,6 +26,7 @@ require_once 'includes/session-details.php';
     if (!isset($_SESSION["user_id"]))
     {
     ?>
+
         <form action="login/index.php">
             <button>Login</button>
         </form>
@@ -35,12 +36,14 @@ require_once 'includes/session-details.php';
         <form action="signup/index.php">
             <button>Signup</button>
         </form>
+        
     <?php
     }
     else
     {
     ?>
-        <form action="cars/index.php">
+
+        <form action="cars/index.php" method="post">
             <button>Go to cars</button>
         </form>
 
@@ -49,6 +52,7 @@ require_once 'includes/session-details.php';
         <form action="login/logout-handler.php" method="post">
             <input type="submit" value="Logout">
         </form>
+
     <?php
     }
     ?>
