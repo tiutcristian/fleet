@@ -7,9 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     try 
     {
-        require_once 'dbh-inc.php';
-        require_once 'login_model-inc.php';
-        require_once 'login_contr-inc.php';
+        require_once '../includes/db-setup.php';
+        require_once 'model.php';
+        require_once 'controller.php';
 
         // ERROR HANDLERS
         $errors = [];
@@ -30,13 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $errors["login_incorrect"] = "Incorrect login info!";
         }
 
-        require_once 'config_session-inc.php';
+        require_once '../includes/config-session.php';
 
         if ($errors)
         {
             $_SESSION["errors_login"] = $errors;
 
-            header("Location: ../login.php");
+            header("Location: index.php");
             die();
         }
 
@@ -61,6 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 }
 else
 {
-    header("Location: ../login.php");
+    header("Location: index.php");
     die();
 }

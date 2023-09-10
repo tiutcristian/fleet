@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/config_session-inc.php';
-require_once 'includes/login_view-inc.php';
+require_once 'includes/config-session.php';
+require_once 'includes/session-details.php';
 ?>
 
 <!DOCTYPE html>
@@ -26,13 +26,13 @@ require_once 'includes/login_view-inc.php';
     if (!isset($_SESSION["user_id"]))
     {
     ?>
-        <form action="login.php">
+        <form action="login/index.php">
             <button>Login</button>
         </form>
 
         <br><br><br>
 
-        <form action="signup.php">
+        <form action="signup/index.php">
             <button>Signup</button>
         </form>
     <?php
@@ -40,13 +40,13 @@ require_once 'includes/login_view-inc.php';
     else
     {
     ?>
-        <form action="cars.php">
+        <form action="cars/index.php">
             <button>Go to cars</button>
         </form>
 
         <br><br><br>
         
-        <form action="includes/logout-inc.php" method="post">
+        <form action="login/logout-handler.php" method="post">
             <input type="submit" value="Logout">
         </form>
     <?php
