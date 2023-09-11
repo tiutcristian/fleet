@@ -13,8 +13,16 @@ require_once 'view.php';
     <title>Document</title>
 </head>
 <body>
-    <?php
-        output_test_message();
-    ?>
+
+<?php
+    require_once 'handler.php';
+?>
+
+    <br><br><br>
+
+    <form action="../index.php">
+        <button>Go to homepage</button>
+    </form>
+
 </body>
 </html>

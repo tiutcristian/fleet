@@ -1,5 +1,7 @@
 CREATE TABLE cars (
 	id INT(11) NOT NULL AUTO_INCREMENT,
+    make VARCHAR(30) NOT NULL,
+    model VARCHAR(30) NOT NULL,
     vin VARCHAR(17) NOT NULL,
     plate_number VARCHAR(7) NOT NULL,
     user_id INT(11) NOT NULL,
