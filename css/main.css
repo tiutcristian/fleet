@@ -66,3 +66,26 @@ button:hover {
     text-align: center;
     color: brown;
 }
+
+table {
+    background-color: rgb(10, 255, 173);
+    width: 50%;
+    margin-left: 25%;
+    border: 2px cadetblue solid;
+}
+
+th, td {
+    padding-left: 15px;
+}
+
+th {
+    height: 50px;
+    vertical-align: middle;
+    border: 2px cadetblue solid;
+}
+
+td {
+    height: 40px;
+    vertical-align: middle;
+    border: 1px cadetblue solid;
+}

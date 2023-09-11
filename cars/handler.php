@@ -9,7 +9,9 @@ try
     require_once 'controller.php';
 
     if(isset($_SESSION["user_id"]))
+    {
         display_user_cars($pdo, $_SESSION["user_username"]);
+    }
     else
     {
         display_error_message();
