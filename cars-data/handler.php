@@ -10,12 +10,14 @@ try
 
     if(isset($_SESSION["user_id"]))
     {
-        display_user_cars($pdo, $_SESSION["user_username"]);
+        cars_data_table($pdo, $_SESSION["user_username"]);
+        add_car_button();
     }
     else
     {
-        display_error_message();
+        error_message();
     }
+    homepage_redirect_button();
 } 
 catch (PDOException $e) 
 {

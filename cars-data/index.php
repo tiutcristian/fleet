@@ -14,15 +14,7 @@ require_once 'view.php';
 </head>
 <body>
 
-<?php
-    require_once 'handler.php';
-?>
-
-    <br><br><br>
-
-    <form action="../index.php">
-        <button>Go to homepage</button>
-    </form>
+    <?php require_once 'handler.php'; ?>
 
 </body>
 </html>
