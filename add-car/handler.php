@@ -2,12 +2,10 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
-    $make = $_POST["make"];
-    $model = $_POST["model"];
-    $plate_number = $_POST["plate_number"];
-    $vin = $_POST["vin"];
-
-    echo $make . '<br>' . $model . '<br>' . $plate_number . '<br>' . $vin;
+    $make = strtoupper($_POST["make"]);
+    $model = strtoupper($_POST["model"]);
+    $plate_number = strtoupper($_POST["plate_number"]);
+    $vin = strtoupper($_POST["vin"]);
 
     try 
     {

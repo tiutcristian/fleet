@@ -4,33 +4,35 @@ declare(strict_types=1);
 
 function display_car_inputs ()
 {
+    // "Make" input
+    echo '<input type="text" name="make" id="make" placeholder="Make" 
+        value="'.$_SESSION["car_data"]["make"].'">';
 
-    echo '<input type="text" name="make" id="make" placeholder="Make">
-          <input type="text" name="model" id="model" placeholder="Model">
-          <input type="text" name="plate_number" id="plate_number" placeholder="License plate">
-          <input type="text" name="vin" id="vin" placeholder="VIN number">';
+    // "Model" input
+    echo '<input type="text" name="model" id="model" placeholder="Model" 
+        value="'.$_SESSION["car_data"]["model"].'">';
+
+    // "License plate" input
+    if(isset($_SESSION["car_data"]["plate_number"]) 
+        && !isset($_SESSION["errors_add_car"]["invalid_plate"])
+        && !isset($_SESSION["errors_add_car"]["taken_plate"]))
+    {
+        echo '<input type="text" name="plate_number" id="plate_number" placeholder="License plate" 
+            value="'.$_SESSION["car_data"]["plate_number"].'">';
+    }
+    else
+        echo '<input type="text" name="plate_number" id="plate_number" placeholder="License plate">';
     
-
-/*
-    if (isset($_SESSION["signup_data"]["username"]) && !isset($_SESSION["errors_signup"]["username_taken"]))
+    // "VIN number" input
+    if(isset($_SESSION["car_data"]["vin"]) 
+        && !isset($_SESSION["errors_add_car"]["invalid_vin"])
+        && !isset($_SESSION["errors_add_car"]["taken_vin"]))
     {
-        echo '<input type="text" name="username" placeholder="Username" value="' . $_SESSION["signup_data"]["username"] . '">';
+        echo '<input type="text" name="vin" id="vin" placeholder="VIN number" 
+            value="'.$_SESSION["car_data"]["vin"].'">';
     }
     else
-    {
-        echo '<input type="text" name="username" placeholder="Username">';
-    }
-
-    if (isset($_SESSION["signup_data"]["email"]) && !isset($_SESSION["errors_signup"]["email_used"]) && !isset($_SESSION["errors_signup"]["invalid_email"]))
-    {
-        echo '<input type="text" name="email" placeholder="Email" value="' . $_SESSION["signup_data"]["email"] . '">';
-    }
-    else
-    {
-        echo '<input type="text" name="email" placeholder="Email">';
-    }
-
-    echo '<input type="password" name="pwd" placeholder="Password">';*/
+        echo '<input type="text" name="vin" id="vin" placeholder="VIN number">';
 }
 
 function display_errors ()
