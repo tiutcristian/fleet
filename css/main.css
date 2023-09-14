@@ -71,21 +71,21 @@ table {
     background-color: rgb(10, 255, 173);
     width: 50%;
     margin-left: 25%;
-    border: 2px cadetblue solid;
+    border-radius: 15px;
 }
 
 th, td {
-    padding-left: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 th {
     height: 50px;
     vertical-align: middle;
-    border: 2px cadetblue solid;
+    border-bottom: 2px cadetblue solid;
 }
 
 td {
     height: 40px;
     vertical-align: middle;
-    border: 1px cadetblue solid;
 }

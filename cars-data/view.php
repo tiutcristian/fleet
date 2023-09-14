@@ -3,27 +3,34 @@
 function cars_data_table (object $pdo, string $username)
 {
     $result = get_user_cars($pdo, $username);
-    echo '<table>
-            <tr>
-                <th>Nr. Crt.</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>VIN Number</th>
-                <th>License plate</th>
-            </tr>';
-    $count = 0;
-    foreach ($result as $car) 
+    if($result)
     {
-        $count++;
-        echo '<tr>
-                <td>'.$count.'</td>
-                <td>'.$car["make"].'</td>
-                <td>'.$car["model"].'</td>
-                <td>'.$car["vin"].'</td>
-                <td>'.$car["plate_number"].'</td>
-            </tr>';
+        echo '<table>
+                <tr>
+                    <th>Nr. Crt.</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>VIN Number</th>
+                    <th>License plate</th>
+                    <th>Delete</th>
+                </tr>';
+        $count = 0;
+        foreach ($result as $car) 
+        {
+            $count++;
+            echo '<tr>
+                    <td>'.$count.'</td>
+                    <td>'.$car["make"].'</td>
+                    <td>'.$car["model"].'</td>
+                    <td>'.$car["vin"].'</td>
+                    <td>'.$car["plate_number"].'</td>
+                    <td><form action="delete-car.php"><button></button></form></td>
+                </tr>';
+        }
+        echo "</table>";
     }
-    echo "</table>";
+    else
+        echo '<h3>No cars added</h3>';
 }
 
 function display_login_redirect_button()
