@@ -5,12 +5,18 @@ declare(strict_types=1);
 function display_car_inputs ()
 {
     // "Make" input
-    echo '<input type="text" name="make" id="make" placeholder="Make" 
-        value="'.$_SESSION["car_data"]["make"].'">';
+    if(isset($_SESSION["car_data"]["make"]))
+        echo '<input type="text" name="make" id="make" placeholder="Make" 
+            value="'.$_SESSION["car_data"]["make"].'">';
+    else
+        echo '<input type="text" name="make" id="make" placeholder="Make">';
 
     // "Model" input
-    echo '<input type="text" name="model" id="model" placeholder="Model" 
-        value="'.$_SESSION["car_data"]["model"].'">';
+    if(isset($_SESSION["car_data"]["model"]))
+        echo '<input type="text" name="model" id="model" placeholder="Model" 
+            value="'.$_SESSION["car_data"]["model"].'">';
+    else
+        echo '<input type="text" name="model" id="model" placeholder="Model">';
 
     // "License plate" input
     if(isset($_SESSION["car_data"]["plate_number"]) 

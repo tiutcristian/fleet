@@ -2,10 +2,10 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
-    $make = strtoupper($_POST["make"]);
-    $model = strtoupper($_POST["model"]);
-    $plate_number = strtoupper($_POST["plate_number"]);
-    $vin = strtoupper($_POST["vin"]);
+    $make = $_POST["make"];
+    $model = $_POST["model"];
+    $plate_number = $_POST["plate_number"];
+    $vin = $_POST["vin"];
 
     try 
     {
@@ -20,19 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $errors["empty_input"] = "Fill in all fields!";
         }
-        if (is_vin_invalid($vin))
+        if (is_vin_invalid(strtoupper($vin)))
         {
             $errors["invalid_vin"] = "VIN number is not valid!";
         }
-        if (is_vin_taken($pdo, $vin))
+        if (is_vin_taken($pdo, strtoupper($vin)))
         {
             $errors["taken_vin"] = "VIN number is taken!";
         }
-        if (is_plate_invalid($plate_number))
+        if (is_plate_invalid(strtoupper($plate_number)))
         {
             $errors["invalid_plate"] = "Plate number is not valid!";
         }
-        if (is_plate_taken($pdo, $plate_number))
+        if (is_plate_taken($pdo, strtoupper($plate_number)))
         {
             $errors["taken_plate"] = "Plate number is taken!";
         }
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             die();
         }
 
-        add_car($pdo, $make, $model, $plate_number, $vin);
+        add_car($pdo, strtoupper($make), strtoupper($model), strtoupper($plate_number), strtoupper($vin));
 
         unset($_SESSION["car_data"]);
         header("Location: index.php?addcar=success");
