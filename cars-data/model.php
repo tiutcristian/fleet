@@ -25,3 +25,12 @@ function get_user_cars (object $pdo, string $username)
 
     return $result_array;
 }
+
+function delete_car(object $pdo, int $id)
+{
+    $query = "DELETE FROM cars WHERE id=:id AND user_id=:user_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":id", $id);
+    $stmt->bindParam(":user_id", $_SESSION["user_id"]);
+    $stmt->execute();
+}

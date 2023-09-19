@@ -12,7 +12,7 @@ function cars_data_table (object $pdo, string $username)
                     <th>Model</th>
                     <th>VIN Number</th>
                     <th>License plate</th>
-                    <th>Delete</th>
+                    <th></th>
                 </tr>';
         $count = 0;
         foreach ($result as $car) 
@@ -24,7 +24,11 @@ function cars_data_table (object $pdo, string $username)
                     <td>'.$car["model"].'</td>
                     <td>'.$car["vin"].'</td>
                     <td>'.$car["plate_number"].'</td>
-                    <td><form action="delete-car.php"><button></button></form></td>
+                    <td>
+                        <button class="btn" onclick="onDelete(\''.$car["plate_number"].'\', '.$car["id"].')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
                 </tr>';
         }
         echo "</table>";

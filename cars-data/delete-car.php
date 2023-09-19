@@ -1,4 +1,16 @@
 <?php
+require_once '../includes/db-setup.php';
+require_once '../includes/config-session.php';
+require_once 'view.php';
+require_once 'model.php';
 
-echo 'delete-car page';
-echo '<form action="index.php"><button>Go to cars data</button></form>';
+try 
+{
+    delete_car($pdo, $_POST["car-id"]);
+    header("Location: index.php");
+    die();
+}
+catch (PDOException $e) 
+{
+    die("Query failed: " . $e->getMessage());
+}
