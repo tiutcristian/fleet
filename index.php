@@ -43,9 +43,9 @@ require_once 'includes/session-details.php';
     {
     ?>
 
-        <form action="cars-data/index.php" method="post">
+        <a href="cars-data/index.php">
             <button>Go to cars</button>
-        </form>
+        </a>
 
         <br><br><br>
         

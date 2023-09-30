@@ -40,7 +40,7 @@ require_once 'view.php';
             </form>
             <button onclick="hidePopUp()">No</button>
         </div>
-    </div>
+    </div>  
 
 </body>
 </html>
