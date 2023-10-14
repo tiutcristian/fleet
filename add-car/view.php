@@ -6,39 +6,63 @@ function display_car_inputs ()
 {
     // "Make" input
     if(isset($_SESSION["car_data"]["make"]))
-        echo '<input type="text" name="make" id="make" placeholder="Make" 
-            value="'.$_SESSION["car_data"]["make"].'">';
+        ?>
+            <input type="text" name="make" id="make" placeholder="Make" 
+            value="<?= $_SESSION["car_data"]["make"] ?>">
+        <?php
     else
-        echo '<input type="text" name="make" id="make" placeholder="Make">';
+        ?>
+            <input type="text" name="make" id="make" placeholder="Make">
+        <?php
 
     // "Model" input
     if(isset($_SESSION["car_data"]["model"]))
-        echo '<input type="text" name="model" id="model" placeholder="Model" 
-            value="'.$_SESSION["car_data"]["model"].'">';
+        ?>
+            <input type="text" name="model" id="model" placeholder="Model" 
+            value=" <?= $_SESSION["car_data"]["model"] ?> ">
+        <?php
     else
-        echo '<input type="text" name="model" id="model" placeholder="Model">';
+        ?>
+            <input type="text" name="model" id="model" placeholder="Model">
+        <?php
 
     // "License plate" input
     if(isset($_SESSION["car_data"]["plate_number"]) 
         && !isset($_SESSION["errors_add_car"]["invalid_plate"])
         && !isset($_SESSION["errors_add_car"]["taken_plate"]))
     {
-        echo '<input type="text" name="plate_number" id="plate_number" placeholder="License plate" 
-            value="'.$_SESSION["car_data"]["plate_number"].'">';
+        ?>
+            <input type="text" name="plate_number" id="plate_number" placeholder="License plate" 
+            value=" <?= $_SESSION["car_data"]["plate_number"] ?> ">
+        <?php
     }
     else
-        echo '<input type="text" name="plate_number" id="plate_number" placeholder="License plate">';
+        ?>
+            <input type="text" name="plate_number" id="plate_number" placeholder="License plate">
+        <?php
     
     // "VIN number" input
     if(isset($_SESSION["car_data"]["vin"]) 
         && !isset($_SESSION["errors_add_car"]["invalid_vin"])
         && !isset($_SESSION["errors_add_car"]["taken_vin"]))
     {
-        echo '<input type="text" name="vin" id="vin" placeholder="VIN number" 
-            value="'.$_SESSION["car_data"]["vin"].'">';
+        ?>
+            <input type="text" name="vin" id="vin" placeholder="VIN number" 
+            value=" <?= $_SESSION["car_data"]["vin"] ?> ">
+        <?php
     }
     else
-        echo '<input type="text" name="vin" id="vin" placeholder="VIN number">';
+        ?> 
+            <input type="text" name="vin" id="vin" placeholder="VIN number">
+        <?php
+
+    // ITP expiration date input
+    // vignette
+        // country
+        // details
+        // expiration date
+    // insurances
+        // -?-
 }
 
 function display_errors ()
