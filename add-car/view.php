@@ -56,13 +56,16 @@ function display_car_inputs ()
             <input type="text" name="vin" id="vin" placeholder="VIN number">
         <?php
 
-    // ITP expiration date input
+    // ITP 
+        //expiration date
     // vignette
         // country
-        // details
-        // expiration date
+        // details (optional)
+        // expiration_date
     // insurances
-        // -?-
+        // insurance_type
+        // details (optional)
+        // expiration_date
 }
 
 function display_errors ()
