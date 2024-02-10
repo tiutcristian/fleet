@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 function get_car_by_id(object $pdo, int $id)
 {
     $query = "SELECT * FROM cars WHERE id = :id";
@@ -22,4 +20,26 @@ function get_vignettes_by_car_id(object $pdo, int $car_id)
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt = null;
     return $result;
+}
+
+function update_itp(object $pdo, int $car_id, $expiration_date)
+{
+    $query = "UPDATE cars SET itp_exp_date = :expiration_date WHERE id = :car_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":expiration_date", $expiration_date);
+    $stmt->bindParam(":car_id", $car_id);
+    $stmt->execute();
+    $stmt = null;
+}
+
+function add_vignette(object $pdo, $car_id, $country, $details, $expiration_date)
+{
+    $query = "INSERT INTO vignettes (car_id, country, details, expiration_date) VALUES 
+            (:car_id, :country, :details, :expiration_date);";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":car_id", $car_id);
+    $stmt->bindParam(":country", $country);
+    $stmt->bindParam(":details", $details);
+    $stmt->bindParam(":expiration_date", $expiration_date);
+    $stmt->execute();
 }

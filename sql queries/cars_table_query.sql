@@ -4,7 +4,7 @@ CREATE TABLE cars (
     model VARCHAR(30) NOT NULL,
     vin VARCHAR(17) NOT NULL,
     plate_number VARCHAR(7) NOT NULL,
-    itp_exp_date DATETIME NOT NULL,
+    itp_exp_date DATETIME,
     user_id INT(11) NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),

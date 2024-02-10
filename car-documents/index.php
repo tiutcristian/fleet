@@ -17,10 +17,17 @@ $pdo = connect_db();
 <body>
 
     <?php
-        $car_id = $_GET["id"];       
-        echo '<h3> Car id: <?= $car_id ?> </h3>';
+        $car_id = $_GET["id"];
+    ?> 
+        <h3> Car id: <?= $car_id ?> </h3>
+        <br><br><br>
+    <?php    
         display_car_documents($pdo, $car_id);
     ?>
+
+    <a href="../cars-data/index.php">
+        <button>Go back to cars list</button>
+    </a>
 
 </body>
 </html>
