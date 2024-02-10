@@ -1,16 +1,17 @@
 <?php
 
+require_once '../includes/db-setup.php';
+require_once 'model.php';
+require_once '../includes/config-session.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    $pdo = connect_db();
     $username = $_POST["username"];
     $pwd = $_POST["pwd"];
 
     try 
     {
-        require_once '../includes/db-setup.php';
-        require_once 'model.php';
-        require_once 'controller.php';
-
         // ERROR HANDLERS
         $errors = [];
 
@@ -21,16 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         $result = get_user($pdo, $username);
 
-        if (is_username_wrong($result))
+        if (is_username_wrong($result) || is_password_wrong($pwd, $result["pwd"]))
         {
             $errors["login_incorrect"] = "Incorrect login info!";
         }
-        else if (is_password_wrong($pwd, $result["pwd"]))
-        {
-            $errors["login_incorrect"] = "Incorrect login info!";
-        }
-
-        require_once '../includes/config-session.php';
 
         if ($errors)
         {
@@ -63,4 +58,19 @@ else
 {
     header("Location: index.php");
     die();
+}
+
+function is_input_empty (string $username, string $pwd)
+{
+    return (empty($username) || empty($pwd));
+}
+
+function is_username_wrong (bool|array $result)
+{
+    return !$result;
+}
+
+function is_password_wrong (string $pwd, string $hashedPwd)
+{
+    return !password_verify($pwd, $hashedPwd);
 }

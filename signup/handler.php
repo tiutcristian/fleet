@@ -1,17 +1,19 @@
 <?php
+require_once '../includes/config-session.php';
+require_once '../includes/db-setup.php';
+require_once 'model.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {
+    $pdo = connect_db();
+
     $username = $_POST["username"];
     $pwd = $_POST["pwd"];
     $email = $_POST["email"];
 
     try 
     {
-        require_once '../includes/db-setup.php';
-        require_once 'model.php';
-        require_once 'controller.php';
-
         // ERROR HANDLERS
         $errors = [];
 
@@ -31,8 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         {
             $errors["email_used"] = "Email already registered!";
         }
-
-        require_once '../includes/config-session.php';
 
         if ($errors)
         {
@@ -65,4 +65,24 @@ else
 {
     header("Location: ../index.php");
     die();
+}
+
+function is_input_empty(string $username, string $pwd, string $email)
+{
+    return empty($username) || empty($pwd) || empty($email);
+}
+
+function is_email_invalid(string $email)
+{
+    return !filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE);
+}
+
+function is_username_taken(object $pdo, string $username)
+{
+    return get_username($pdo, $username);
+}
+
+function is_email_registered(object $pdo, string $email)
+{
+    return get_email($pdo, $email);
 }

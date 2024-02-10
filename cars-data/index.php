@@ -1,6 +1,9 @@
 <?php
 require_once '../includes/config-session.php';
+require_once '../includes/db-setup.php';
+require_once 'model.php';
 require_once 'view.php';
+$pdo = connect_db();
 ?>
 
 <!DOCTYPE html>
@@ -29,13 +32,31 @@ require_once 'view.php';
 </head>
 <body>
 
-    <?php require_once 'handler.php'; ?> 
+    <?php 
+        try 
+        {
+            if(isset($_SESSION["user_id"]))
+            {
+                cars_data_table($pdo, $_SESSION["user_username"]);
+                add_car_button();
+            }
+            else
+            {
+                error_message();
+            }
+            homepage_redirect_button();
+        } 
+        catch (PDOException $e) 
+        {
+            die("Query failed: " . $e->getMessage());
+        }
+    ?> 
 
     <div id="pop-up-container">
         <div class="pop-up">
             <div>Are you sure you want to delete <span id="plate-number-container"></span></div>
             <button id="yes-button">Yes</button>
-            <form action="delete-car.php" method="post" id="delete-car-form" style="display:none;">
+            <form action="delete-handler.php" method="post" id="delete-car-form" style="display:none;">
                 <input type="text" name="car-id" id="car-id">
             </form>
             <button onclick="hidePopUp()">No</button>

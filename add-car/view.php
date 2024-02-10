@@ -6,66 +6,67 @@ function display_car_inputs ()
 {
     // "Make" input
     if(isset($_SESSION["car_data"]["make"]))
+    {
         ?>
             <input type="text" name="make" id="make" placeholder="Make" 
-            value="<?= $_SESSION["car_data"]["make"] ?>">
+            value="<?=$_SESSION["car_data"]["make"]?>">
         <?php
+    }
     else
+    {
         ?>
             <input type="text" name="make" id="make" placeholder="Make">
         <?php
+    }
 
     // "Model" input
     if(isset($_SESSION["car_data"]["model"]))
+    {
         ?>
             <input type="text" name="model" id="model" placeholder="Model" 
-            value=" <?= $_SESSION["car_data"]["model"] ?> ">
+            value="<?=$_SESSION["car_data"]["model"]?>">
         <?php
+    }
     else
+    {
         ?>
             <input type="text" name="model" id="model" placeholder="Model">
         <?php
+    }
 
     // "License plate" input
-    if(isset($_SESSION["car_data"]["plate_number"]) 
+    if(isset($_SESSION["car_data"]["plate_number"])
         && !isset($_SESSION["errors_add_car"]["invalid_plate"])
         && !isset($_SESSION["errors_add_car"]["taken_plate"]))
     {
         ?>
             <input type="text" name="plate_number" id="plate_number" placeholder="License plate" 
-            value=" <?= $_SESSION["car_data"]["plate_number"] ?> ">
+            value="<?=$_SESSION["car_data"]["plate_number"]?>">
         <?php
     }
     else
+    {
         ?>
             <input type="text" name="plate_number" id="plate_number" placeholder="License plate">
         <?php
+    }
     
     // "VIN number" input
-    if(isset($_SESSION["car_data"]["vin"]) 
+    if(isset($_SESSION["car_data"]["vin"])
         && !isset($_SESSION["errors_add_car"]["invalid_vin"])
         && !isset($_SESSION["errors_add_car"]["taken_vin"]))
     {
         ?>
             <input type="text" name="vin" id="vin" placeholder="VIN number" 
-            value=" <?= $_SESSION["car_data"]["vin"] ?> ">
+            value="<?=$_SESSION["car_data"]["vin"]?>">
         <?php
     }
     else
+    {
         ?> 
             <input type="text" name="vin" id="vin" placeholder="VIN number">
         <?php
-
-    // ITP 
-        //expiration date
-    // vignette
-        // country
-        // details (optional)
-        // expiration_date
-    // insurances
-        // insurance_type
-        // details (optional)
-        // expiration_date
+    }
 }
 
 function display_errors ()

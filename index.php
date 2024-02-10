@@ -1,6 +1,5 @@
 <?php
 require_once 'includes/config-session.php';
-require_once 'includes/session-details.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +14,15 @@ require_once 'includes/session-details.php';
 <body>
 
     <h3>
-        <?php
-        output_username();
+        <?php 
+            if (isset($_SESSION["user_id"]))
+            {
+                echo "You are logged in as " . $_SESSION["user_username"];
+            }
+            else
+            {
+                echo "You are not logged in";
+            }
         ?>
     </h3>
         

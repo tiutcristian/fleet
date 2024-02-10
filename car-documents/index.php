@@ -2,7 +2,7 @@
 require_once '../includes/db-setup.php';
 require_once 'model.php';
 require_once 'view.php';
-require_once 'controller.php';
+$pdo = connect_db();
 ?>
 
 <!DOCTYPE html>
@@ -17,21 +17,10 @@ require_once 'controller.php';
 <body>
 
     <?php
-        $id = $_GET["id"];
-        $car = get_car_by_id($pdo, $id);        
+        $car_id = $_GET["id"];       
+        echo '<h3> Car id: <?= $car_id ?> </h3>';
+        display_car_documents($pdo, $car_id);
     ?>
-
-    <h3>
-        Car id: <?= $id ?>
-    </h3>
-
-    <ul>
-        <li><h3>VIN Number: <?= $car["vin"] ?> </h3></li>
-        <li><h3>License Plate: <?= $car["plate_number"] ?> </h3></li>
-        <li><h3>ITP: <?= $car["id"] ?> </h3></li>
-        <li><h3>Insurances: <?= $car["id"] ?> </h3></li>
-        <li><h3>Vignettes: <?= $car["id"] ?> </h3></li>
-    </ul>
 
 </body>
 </html>

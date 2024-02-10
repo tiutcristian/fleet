@@ -17,7 +17,7 @@
 <?php if (!isset($_SESSION["user_id"])) { ?>
             <h3>Login</h3>
             <br>
-            <form action="handler.php" method="post">
+            <form action="login-handler.php" method="post">
                 <input type="text" name="username" placeholder="Username">
                 <input type="password" name="pwd" placeholder="Password">
                 <input type="submit" value="Login">
@@ -31,7 +31,7 @@
     <?php } ?>
 
     <?php
-    check_login_errors();
+        show_login_errors();
     ?>
 
     <br><br><br>
