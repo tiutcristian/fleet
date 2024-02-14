@@ -59,3 +59,15 @@ function get_insurances_by_car_id(object $pdo, int $car_id)
     }
     return $insurances;
 }
+
+function add_insurance(object $pdo, $car_id, $insurance_type, $details, $expiration_date)
+{
+    $query = "INSERT INTO insurances (car_id, insurance_type, details, expiration_date) VALUES 
+            (:car_id, :insurance_type, :details, :expiration_date);";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":car_id", $car_id);
+    $stmt->bindParam(":insurance_type", $insurance_type);
+    $stmt->bindParam(":details", $details);
+    $stmt->bindParam(":expiration_date", $expiration_date);
+    $stmt->execute();
+}
