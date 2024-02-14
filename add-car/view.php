@@ -9,13 +9,13 @@ function display_car_inputs ()
     {
         ?>
             <input type="text" name="make" id="make" placeholder="Make" 
-            value="<?=$_SESSION["car_data"]["make"]?>">
+            value="<?=$_SESSION["car_data"]["make"]?>"> <br>
         <?php
     }
     else
     {
         ?>
-            <input type="text" name="make" id="make" placeholder="Make">
+            <input type="text" name="make" id="make" placeholder="Make"> <br>
         <?php
     }
 
@@ -24,13 +24,13 @@ function display_car_inputs ()
     {
         ?>
             <input type="text" name="model" id="model" placeholder="Model" 
-            value="<?=$_SESSION["car_data"]["model"]?>">
+            value="<?=$_SESSION["car_data"]["model"]?>"> <br>
         <?php
     }
     else
     {
         ?>
-            <input type="text" name="model" id="model" placeholder="Model">
+            <input type="text" name="model" id="model" placeholder="Model"> <br>
         <?php
     }
 
@@ -41,13 +41,13 @@ function display_car_inputs ()
     {
         ?>
             <input type="text" name="plate_number" id="plate_number" placeholder="License plate" 
-            value="<?=$_SESSION["car_data"]["plate_number"]?>">
+            value="<?=$_SESSION["car_data"]["plate_number"]?>"> <br>
         <?php
     }
     else
     {
         ?>
-            <input type="text" name="plate_number" id="plate_number" placeholder="License plate">
+            <input type="text" name="plate_number" id="plate_number" placeholder="License plate"> <br>
         <?php
     }
     
@@ -58,13 +58,13 @@ function display_car_inputs ()
     {
         ?>
             <input type="text" name="vin" id="vin" placeholder="VIN number" 
-            value="<?=$_SESSION["car_data"]["vin"]?>">
+            value="<?=$_SESSION["car_data"]["vin"]?>"> <br>
         <?php
     }
     else
     {
         ?> 
-            <input type="text" name="vin" id="vin" placeholder="VIN number">
+            <input type="text" name="vin" id="vin" placeholder="VIN number"> <br>
         <?php
     }
 }

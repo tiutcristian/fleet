@@ -5,7 +5,7 @@ $pdo = connect_db();
 
 try 
 {
-    update_itp($pdo, $_POST["car-id"], $_POST["expiration_date"]);
+    update_itp($pdo, $_POST["car-id"], $_POST["itp-expiration-date"]);
     header("Location: index.php?id=" . $_POST["car-id"]);
     die();
 }

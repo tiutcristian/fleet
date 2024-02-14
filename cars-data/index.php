@@ -11,8 +11,35 @@ $pdo = connect_db();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/main.css">
+    <!-- <link rel="stylesheet" href="../css/reset.css"> 
+    <link rel="stylesheet" href="../css/main.css"> -->
+    <style>
+        #pop-up-container {
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+        }
+
+        .pop-up {
+            border-radius: 15px;
+            padding: 10px 10px 10px 10px;
+            background-color: lightgray;
+            width: min(600px, 90vw);
+            /*height: 150px;*/
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
     <script>

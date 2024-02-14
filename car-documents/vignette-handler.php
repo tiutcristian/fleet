@@ -8,7 +8,7 @@ $pdo = connect_db();
 
 try 
 {
-    add_vignette($pdo, $_POST["car-id"], $_POST["country"], $_POST["details"], $_POST["expiration-date"]);
+    add_vignette($pdo, $_POST["car-id"], $_POST["country"], $_POST["details"], $_POST["vignette-expiration-date"]);
     header("Location: index.php?id=" . $_POST["car-id"]);
     die();
 }

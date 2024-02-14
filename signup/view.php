@@ -6,44 +6,63 @@ function signup_inputs ()
 {
     if (isset($_SESSION["signup_data"]["username"]) && !isset($_SESSION["errors_signup"]["username_taken"]))
     {
-        echo '<input type="text" name="username" placeholder="Username" value="' . $_SESSION["signup_data"]["username"] . '">';
+        ?>
+            <input type="text" name="username" placeholder="Username" value="<?= $_SESSION["signup_data"]["username"] ?>">
+            <br>
+        <?php
     }
     else
     {
-        echo '<input type="text" name="username" placeholder="Username">';
+        ?>
+            <input type="text" name="username" placeholder="Username">
+            <br>
+        <?php
     }
 
     if (isset($_SESSION["signup_data"]["email"]) && !isset($_SESSION["errors_signup"]["email_used"]) && !isset($_SESSION["errors_signup"]["invalid_email"]))
     {
-        echo '<input type="text" name="email" placeholder="Email" value="' . $_SESSION["signup_data"]["email"] . '">';
+        ?>
+            <input type="text" name="email" placeholder="Email" value="<?= $_SESSION["signup_data"]["email"] ?>">
+            <br>
+        <?php
     }
     else
     {
-        echo '<input type="text" name="email" placeholder="Email">';
+        ?>
+            <input type="text" name="email" placeholder="Email">
+            <br>
+        <?php
     }
 
-    echo '<input type="password" name="pwd" placeholder="Password">';
+    ?>
+        <input type="password" name="pwd" placeholder="Password">
+        <br>
+    <?php
 }
 
-function check_signup_errors ()
+function display_signup_errors ()
 {
     if (isset($_SESSION['errors_signup']))
     {
         $errors = $_SESSION['errors_signup'];
 
-        echo "<br>";
+        echo '<br>';
 
         foreach($errors as $error)
         {
-            echo '<p class="form-error">' . $error . '</p>';
+            ?>
+                <p class="form-error"><?= $error ?></p>
+            <?php
         }
 
         unset($_SESSION['errors_signup']);
     }
     else if (isset($_GET["signup"]) && $_GET["signup"] === "success")
     {
-        echo '<br>';
-        echo '<p class="form-success">Signup success!</p>';
+        ?>
+            <br>
+            <p class="form-succes">Signup success!</p>
+        <?php
     }
 }
 
