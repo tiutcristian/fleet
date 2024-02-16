@@ -48,6 +48,19 @@ function display_itp($car)
             <input type="submit" value="Submit">
         </form>
     <?php
+
+    if (isset($_SESSION['errors_itp']))
+    {
+        $errors = $_SESSION['errors_itp'];
+        echo '<br>';
+        foreach($errors as $error)
+        {
+            ?>
+                <p class="form-error"><?= $error ?></p>
+            <?php
+        }
+        unset($_SESSION['errors_itp']);
+    }
 }
 
 
@@ -73,9 +86,16 @@ function display_vignettes($pdo, $car_id)
     {
         for ($i = 0; $i < count($vignettes); $i++)
         {
+            $exp_date = strtotime($vignettes[$i]["expiration_date"]);
+            if ($exp_date < time())
+            {
+                ?>
+                    <h3 style="color: red;">[Expired]</h3>
+                <?php
+            }
             ?>
                 <h3>Vignette <?= $i + 1 ?>: <?= $vignettes[$i]["country"] ?> </h3>
-                <h3>Expiration Date: <?= $vignettes[$i]["expiration_date"] ?> </h3>
+                <h3>Expiration Date: <?= date('d.m.Y', $exp_date) ?> </h3>
             <?php
             if ($vignettes[$i]["details"] != "")
             {
@@ -83,6 +103,13 @@ function display_vignettes($pdo, $car_id)
                     <h3>Details: <?= $vignettes[$i]["details"] ?> </h3>
                 <?php
             }
+            ?>
+                <form action="delete-vignette.php", method="post">
+                    <input type="hidden" id="vignette-id" name="vignette-id" value="<?= $vignettes[$i]["id"] ?>" />
+                    <input type="hidden" id="car-id" name="car-id" value="<?= $car_id ?>" />
+                    <input type="submit" value="Delete">
+                </form>
+            <?php
             echo '<br>';
         }
     }
@@ -129,47 +156,39 @@ function display_insurances($pdo, $car_id)
     $insurances = get_insurances_by_car_id($pdo, $car_id);
     if (count($insurances) == 0)
     {
-        echo '<h3> No insurances found. Add one below: </h3>';
+        ?>
+            <h3> No insurances found. Add one below: </h3>
+        <?php
     }
     else
     {
-        if (isset($insurances["RCA"]))
+        foreach($insurances as $insurance)
         {
+            $instype = $insurance['insurance_type'];
+            $exp_date = strtotime($insurance["expiration_date"]);
+            if ($exp_date < time())
+            {
+                ?>
+                    <h3 style="color: red;">[Expired]</h3>
+                <?php
+            }
             ?>
-                <h3>RCA:</h3>
-                <br>
-                <h3>Expiration Date: <?= $insurances["RCA"]["expiration_date"] ?> </h3>
-                <br>
+                <h3><?= $instype ?>:</h3>
+                <h4>Expiration Date: <?= date('d.m.Y', $exp_date) ?> </h4>
             <?php
-        }
-
-        if (isset($insurances["CASCO"]))
-        {
+            if ($insurances[$instype]["details"] != "")
+            {
+                ?>
+                    <h4>Details: <?= $insurances[$instype]["details"] ?></h4>
+                <?php
+            }
             ?>
-                <h3>CASCO:</h3>
-                <br>
-                <h3>Expiration Date: <?= $insurances["CASCO"]["expiration_date"] ?> </h3>
-                <br>
-            <?php
-        }
-
-        if (isset($insurances["CMR"]))
-        {
-            ?>
-                <h3>CMR:</h3>
-                <br>
-                <h3>Expiration Date: <?= $insurances["CMR"]["expiration_date"] ?> </h3>
-                <br>
-            <?php
-        }
-
-        if (isset($insurances["Road Assistance"]))
-        {
-            ?>
-                <h3>Road Assistance:</h3>
-                <br>
-                <h3>Expiration Date: <?= $insurances["Road Assistance"]["expiration_date"] ?> </h3>
-                <br>
+                <form action="delete-insurance.php", method="post">
+                    <input type="hidden" id="insurance-id" name="insurance-id" value="<?= $insurance['id'] ?>" />
+                    <input type="hidden" id="car-id" name="car-id" value="<?= $car_id ?>" />
+                    <input type="submit" value="Delete">
+                </form>
+                <h4>-----------------------------------------</h4>
             <?php
         }
     }
@@ -201,6 +220,7 @@ function display_car_documents(object $pdo, int $car_id)
 {
     $car = get_car_by_id($pdo, $car_id);
     ?>
+        <h3>Car id: <?= $car_id ?> </h3>
         <h3>VIN Number: <?= $car["vin"] ?> </h3>
         <h3>License Plate: <?= $car["plate_number"] ?> </h3>
     <?php

@@ -20,18 +20,14 @@
                 <h3>Signup</h3>
                 <br>
                 <form action="handler.php" method="post">
-            <?php 
-
-            signup_inputs();
-
-            ?>
+                    <?php
+                        signup_inputs();
+                    ?>
                     <input type="submit" value="Signup">
                 </form>
-            <?php 
-
-            display_signup_errors();
-
-            ?>
+                <?php 
+                    display_signup_errors();
+                ?>
                 <br><br><br>
                 <form action="../index.php"><button>Go to homepage</button></form>
             <?php

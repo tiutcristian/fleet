@@ -42,6 +42,16 @@ function add_vignette(object $pdo, $car_id, $country, $details, $expiration_date
     $stmt->bindParam(":details", $details);
     $stmt->bindParam(":expiration_date", $expiration_date);
     $stmt->execute();
+    $stmt = null;
+}
+
+function delete_vignette(object $pdo, int $vignette_id)
+{
+    $query = "DELETE FROM vignettes WHERE id = :vignette_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":vignette_id", $vignette_id);
+    $stmt->execute();
+    $stmt = null;
 }
 
 function get_insurances_by_car_id(object $pdo, int $car_id)
@@ -70,4 +80,14 @@ function add_insurance(object $pdo, $car_id, $insurance_type, $details, $expirat
     $stmt->bindParam(":details", $details);
     $stmt->bindParam(":expiration_date", $expiration_date);
     $stmt->execute();
+    $stmt = null;
+}
+
+function delete_insurance(object $pdo, int $insurance_id)
+{
+    $query = "DELETE FROM insurances WHERE id = :insurance_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":insurance_id", $insurance_id);
+    $stmt->execute();
+    $stmt = null;
 }

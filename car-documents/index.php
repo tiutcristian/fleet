@@ -2,6 +2,7 @@
 require_once '../includes/db-setup.php';
 require_once 'model.php';
 require_once 'view.php';
+require_once '../includes/config-session.php';
 $pdo = connect_db();
 ?>
 
@@ -17,11 +18,7 @@ $pdo = connect_db();
 <body>
 
     <?php
-        $car_id = $_GET["id"];
-    ?> 
-        <h3> Car id: <?= $car_id ?> </h3>
-    <?php    
-        display_car_documents($pdo, $car_id);
+        display_car_documents($pdo, $_GET["id"]);
     ?>
 
     <a href="../cars-data/index.php">
