@@ -2,15 +2,30 @@
 
 require_once '../includes/db-setup.php';
 require_once 'model.php';
+require_once '../includes/config-session.php';
 $pdo = connect_db();
 
-try 
+if ($_SERVER["REQUEST_METHOD"] != "POST")
 {
-    delete_vignette($pdo, $_POST["vignette-id"]);
-    header("Location: index.php?id=" . $_POST["car-id"]);
+    header("Location: ../index.php"); 
     die();
 }
-catch (PDOException $e) 
+elseif (!isset($_SESSION["user_id"]))
 {
-    die("Query failed: " . $e->getMessage());
+    ?>
+        <h3> You are not logged in. Log in to delete vignette. </h3>
+    <?php
+}
+else
+{
+    try 
+    {
+        delete_vignette($pdo, $_POST["vignette-id"]);
+        header("Location: index.php?id=" . $_POST["car-id"]);
+        die();
+    }
+    catch (PDOException $e) 
+    {
+        die("Query failed: " . $e->getMessage());
+    }
 }

@@ -1,18 +1,31 @@
 <?php
 
-//add_vignette(object $pdo, $car_id, $country, $details, $expiration_date)
-
 require_once '../includes/db-setup.php';
 require_once 'model.php';
+require_once '../includes/config-session.php';
 $pdo = connect_db();
 
-try 
+if ($_SERVER["REQUEST_METHOD"] != "POST")
 {
-    add_vignette($pdo, $_POST["car-id"], $_POST["country"], $_POST["details"], $_POST["vignette-expiration-date"]);
-    header("Location: index.php?id=" . $_POST["car-id"]);
+    header("Location: ../index.php"); 
     die();
 }
-catch (PDOException $e) 
+elseif (!isset($_SESSION["user_id"]))
 {
-    die("Query failed: " . $e->getMessage());
+    ?>
+        <h3> You are not logged in. Log in to update vignette. </h3>
+    <?php
+}
+else
+{
+    try 
+    {
+        add_vignette($pdo, $_POST["car-id"], $_POST["country"], $_POST["details"], $_POST["vignette-expiration-date"]);
+        header("Location: index.php?id=" . $_POST["car-id"]);
+        die();
+    }
+    catch (PDOException $e) 
+    {
+        die("Query failed: " . $e->getMessage());
+    }
 }

@@ -4,18 +4,27 @@ require_once 'model.php';
 require_once '../includes/config-session.php';
 $pdo = connect_db();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
+if ($_SERVER["REQUEST_METHOD"] != "POST")
+{
+    header("Location: ../index.php"); 
+    die();
+}
+elseif (!isset($_SESSION["user_id"]))
+{
+    ?>
+        <h3> You are not logged in. Log in to update ITP. </h3>
+    <?php
+}
+else
 {
     try 
     {
         // ERROR HANDLERS
         $errors = [];
-        
         if ($_POST["itp-expiration-date"] == '')
         {
             $errors["date_empty"] = "Fill in expiration date!";
         }
-
         if ($errors)
         {
             $_SESSION["errors_itp"] = $errors;
@@ -31,9 +40,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         die("Query failed: " . $e->getMessage());
     }
-}
-else
-{
-    header("Location: ../index.php");
-    die();
 }

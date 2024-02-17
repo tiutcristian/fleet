@@ -218,18 +218,34 @@ function display_insurances($pdo, $car_id)
 
 function display_car_documents(object $pdo, int $car_id)
 {
+
     $car = get_car_by_id($pdo, $car_id);
-    ?>
-        <h3>Car id: <?= $car_id ?> </h3>
-        <h3>VIN Number: <?= $car["vin"] ?> </h3>
-        <h3>License Plate: <?= $car["plate_number"] ?> </h3>
-    <?php
-    echo '<br><br><br>';
-    display_itp($car);
-    echo '<br><br><br>';
-    display_vignettes($pdo, $car_id);
-    echo '<br><br><br>';
-    display_insurances($pdo, $car_id);
-    echo '<br><br><br>';
-    $pdo = null;
+    if (!isset($_SESSION["user_id"]))
+    {
+        ?>
+            <h3> You are not logged in. Log in to see car documents. </h3>
+        <?php
+    }
+    elseif ($_SESSION["user_id"] != $car["user_id"]) 
+    {
+        ?>
+            <h3> You are not the owner of this car. </h3>
+        <?php
+    }
+    else
+    {
+        ?>
+            <h3>Car id: <?= $car_id ?> </h3>
+            <h3>VIN Number: <?= $car["vin"] ?> </h3>
+            <h3>License Plate: <?= $car["plate_number"] ?> </h3>
+        <?php
+        echo '<br><br><br>';
+        display_itp($car);
+        echo '<br><br><br>';
+        display_vignettes($pdo, $car_id);
+        echo '<br><br><br>';
+        display_insurances($pdo, $car_id);
+        echo '<br><br><br>';
+        $pdo = null;
+    }
 }
