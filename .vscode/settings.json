@@ -11,8 +11,8 @@
             "driver": "MySQL",
             "name": "Fleet database",
             "database": "fleet",
-            "username": "root",
-            "password": ""
+            "username": "fleet",
+            "password": "fleet"
         }
     ]
 }

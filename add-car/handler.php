@@ -5,20 +5,17 @@ require_once '../includes/config-session.php';
 require_once '../includes/db-setup.php';
 $pdo = connect_db();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") 
-{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $make = $_POST["make"];
     $model = $_POST["model"];
     $plate_number = $_POST["plate_number"];
     $vin = $_POST["vin"];
 
-    try 
-    {
+    try {
         // ERROR HANDLERS
         $errors = get_errors($make, $model, $plate_number, $vin, $pdo);
 
-        if ($errors)
-        {
+        if ($errors) {
             $_SESSION["errors_add_car"] = $errors;
 
             $car_data = [
@@ -29,50 +26,98 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             ];
             $_SESSION["car_data"] = $car_data;
 
-            header("Location: index.php");
+            // header("Location: index.php");
+            echo 'Redirect1!';
             die();
         }
 
+        handle_file_upload();
         create_car($pdo, strtoupper($make), strtoupper($model), strtoupper($plate_number), strtoupper($vin));
 
         unset($_SESSION["car_data"]);
-        header("Location: ../cars-data/index.php");
+        // header("Location: ../cars-data/index.php");
+        echo 'Redirect2!';
         $pdo = null;
         $stmt = null;
         die();
-    } 
-    catch (PDOException $e) 
-    {
+    } catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
-}
-else
-{
-    header("Location: ../index.php");
+} else {
+    // header("Location: ../index.php");
+    echo 'Redirect3!';
     die();
+}
+
+function handle_file_upload()
+{
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+    if (isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            echo "The file " . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
 }
 
 function get_errors($make, $model, $plate_number, $vin, $pdo)
 {
     $errors = [];
-    if (is_input_empty($make, $model, $plate_number, $vin))
-    {
+    if (is_input_empty($make, $model, $plate_number, $vin)) {
         $errors["empty_input"] = "Fill in all fields!";
     }
-    if (is_vin_invalid(strtoupper($vin)))
-    {
+    if (is_vin_invalid(strtoupper($vin))) {
         $errors["invalid_vin"] = "VIN number is not valid!";
     }
-    if (is_vin_taken($pdo, strtoupper($vin)))
-    {
+    if (is_vin_taken($pdo, strtoupper($vin))) {
         $errors["taken_vin"] = "VIN number is taken!";
     }
-    if (is_plate_invalid(strtoupper($plate_number)))
-    {
+    if (is_plate_invalid(strtoupper($plate_number))) {
         $errors["invalid_plate"] = "Plate number is not valid!";
     }
-    if (is_plate_taken($pdo, strtoupper($plate_number)))
-    {
+    if (is_plate_taken($pdo, strtoupper($plate_number))) {
         $errors["taken_plate"] = "Plate number is taken!";
     }
     return $errors;
@@ -80,120 +125,84 @@ function get_errors($make, $model, $plate_number, $vin, $pdo)
 
 function is_input_empty(string $make, string $model, string $plate, string $vin)
 {
-    if(empty($make) ||
-       empty($model) ||
-       empty($plate) ||
-       empty($vin))
-    {
+    if (
+        empty($make) ||
+        empty($model) ||
+        empty($plate) ||
+        empty($vin)
+    ) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
 function is_vin_invalid(string $vin)
 {
-    if(strlen($vin) === 17)
-    {
+    if (strlen($vin) === 17) {
         return false;
-    }
-    else
-    {
+    } else {
         return true;
     }
 }
 
 function is_vin_taken(object $pdo, string $vin)
 {
-    if(get_entry_by_vin($pdo, $vin))
-    {
+    if (get_entry_by_vin($pdo, $vin)) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
 function is_plate_invalid(string $plate)
 {
-    if (strlen($plate) < 6 || strlen($plate) > 7)
-    {
+    if (strlen($plate) < 6 || strlen($plate) > 7) {
         return true;
-    }
-    else if (strlen($plate) === 6)
-    {
+    } else if (strlen($plate) === 6) {
         //cazul B17ABC
-        if($plate[0] != "B")
-        {
+        if ($plate[0] != "B") {
             return true;
-        }
-        else if(!ctype_digit( substr($plate, 1, 2) ))
-        {
+        } else if (!ctype_digit(substr($plate, 1, 2))) {
             return true;
-        }
-        else if($plate[1] == "0" && $plate[2] == "0")
-        {
+        } else if ($plate[1] == "0" && $plate[2] == "0") {
             return true;
-        }
-        else if(!ctype_alpha( substr($plate, 3) ))
-        {
+        } else if (!ctype_alpha(substr($plate, 3))) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
-    }
-    else
-    {
-        
-        $jud = array("AB","AG","AR","BC","BH","BN","BR","BT","BV","BZ","CJ","CL",
-                     "CS","CT","CV","DB","DJ","GJ","GL","GR","HD","HR","IF","IL",
-                     "IS","MH","MM","MS","NT","OT","PH","SB","SJ","SM","SV","TL",
-                     "TM","TR","VL","VN","VS");
-        if(!in_array( substr($plate,0,2), $jud ))
-        {
-            if($plate[0] == "B" && ctype_digit($plate[1]))
-            {
+    } else {
+
+        $jud = array(
+            "AB", "AG", "AR", "BC", "BH", "BN", "BR", "BT", "BV", "BZ", "CJ", "CL",
+            "CS", "CT", "CV", "DB", "DJ", "GJ", "GL", "GR", "HD", "HR", "IF", "IL",
+            "IS", "MH", "MM", "MS", "NT", "OT", "PH", "SB", "SJ", "SM", "SV", "TL",
+            "TM", "TR", "VL", "VN", "VS"
+        );
+        if (!in_array(substr($plate, 0, 2), $jud)) {
+            if ($plate[0] == "B" && ctype_digit($plate[1])) {
                 //cazul B777DXP
-                if(!ctype_digit( substr($plate,1,3) ))
-                {
+                if (!ctype_digit(substr($plate, 1, 3))) {
                     return true;
-                }
-                else if($plate[1] == "0" && $plate[2] == "0" && $plate[3] == "0")
-                {
+                } else if ($plate[1] == "0" && $plate[2] == "0" && $plate[3] == "0") {
                     return true;
-                }
-                else if(!ctype_alpha( substr($plate,4) ))
-                {
+                } else if (!ctype_alpha(substr($plate, 4))) {
                     return true;
-                }
-                else
-                {
+                } else {
                     return false;
                 }
-            }
-            else
+            } else
                 return true;
         }
         //cazul MM53CRI
-        else if(!ctype_digit( substr($plate,2,2) ))
-        {
+        else if (!ctype_digit(substr($plate, 2, 2))) {
             return true;
-        }
-        else if($plate[2] == "0" && $plate[3] == "0")
-        {
+        } else if ($plate[2] == "0" && $plate[3] == "0") {
             return true;
-        }
-        else if(!ctype_alpha( substr($plate,4) ))
-        {
+        } else if (!ctype_alpha(substr($plate, 4))) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -201,12 +210,9 @@ function is_plate_invalid(string $plate)
 
 function is_plate_taken(object $pdo, string $plate_number)
 {
-    if(get_entry_by_plate($pdo, $plate_number))
-    {
+    if (get_entry_by_plate($pdo, $plate_number)) {
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }

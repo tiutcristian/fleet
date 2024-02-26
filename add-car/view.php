@@ -67,6 +67,11 @@ function display_car_inputs ()
             <input type="text" name="vin" id="vin" placeholder="VIN number"> <br>
         <?php
     }
+
+    ?>
+        Select image to upload:
+        <input type="file" name="fileToUpload" id="fileToUpload"> <br>
+    <?php
 }
 
 function display_errors ()
@@ -110,10 +115,11 @@ function error_message()
 
 function display_add_car_form()
 {
-    echo '<h3>Add a car</h3>
-          <br>
-          <form action="handler.php" method="post">';
-            display_car_inputs();
-    echo    '<input type="submit" value="Add">
-          </form>';
+    ?>
+    <h3>Add a car</h3> <br>
+        <form action="handler.php" method="post" enctype="multipart/form-data">
+            <?php display_car_inputs(); ?>
+            <input type="submit" value="Add">
+        </form>
+    <?php
 }
