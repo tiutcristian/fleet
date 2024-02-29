@@ -24,15 +24,16 @@ function get_entry_by_plate(object $pdo, string $plate_number)
     return $result;
 }
 
-function create_car(object $pdo, string $make, string $model, string $plate_number, string $vin)
+function create_car(object $pdo, string $make, string $model, string $plate_number, string $vin, string $path_to_image)
 {
-    $query = "INSERT INTO cars (make, model, plate_number, vin, user_id) VALUES 
-            (:make, :model, :plate_number, :vin, :user_id);";
+    $query = "INSERT INTO cars (make, model, plate_number, vin, path_to_image, user_id) VALUES 
+            (:make, :model, :plate_number, :vin, :path_to_image, :user_id);";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":make", $make);
     $stmt->bindParam(":model", $model);
     $stmt->bindParam(":plate_number", $plate_number);
     $stmt->bindParam(":vin", $vin);
+    $stmt->bindParam(":path_to_image", $path_to_image);
     $stmt->bindParam(":user_id", $_SESSION['user_id']);
     $stmt->execute();
 }

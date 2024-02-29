@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+function display_image($car)
+{
+    $path_to_image = "../" . $car["path_to_image"];
+    ?>
+        <img src="<?=$path_to_image?>" alt="Image not found">
+    <?php
+}
+
 /**
     ITP 
         *expiration date
@@ -239,6 +247,8 @@ function display_car_documents(object $pdo, int $car_id)
             <h3>VIN Number: <?= $car["vin"] ?> </h3>
             <h3>License Plate: <?= $car["plate_number"] ?> </h3>
         <?php
+        echo '<br><br><br>';
+        display_image($car);
         echo '<br><br><br>';
         display_itp($car);
         echo '<br><br><br>';

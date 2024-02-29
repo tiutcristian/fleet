@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die();
         }
 
-        handle_file_upload();
-        create_car($pdo, strtoupper($make), strtoupper($model), strtoupper($plate_number), strtoupper($vin));
+        $target_file = handle_image_upload();
+        create_car($pdo, strtoupper($make), strtoupper($model), strtoupper($plate_number), strtoupper($vin), $target_file);
 
         unset($_SESSION["car_data"]);
         // header("Location: ../cars-data/index.php");
@@ -43,16 +43,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());
     }
-} else {
+} 
+else 
+{
     // header("Location: ../index.php");
     echo 'Redirect3!';
     die();
 }
 
-function handle_file_upload()
+function handle_image_upload()
 {
     $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+ 
+    $filecount = 0;
+    $files2 = glob( $target_dir ."*" );
+    if( $files2 ) {
+        $filecount = count($files2);
+    }
+
+    $target_file = $target_dir . strval($filecount) . ".jpg";
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
@@ -100,6 +109,7 @@ function handle_file_upload()
             echo "Sorry, there was an error uploading your file.";
         }
     }
+    return "add-car/" . $target_file;
 }
 
 function get_errors($make, $model, $plate_number, $vin, $pdo)
