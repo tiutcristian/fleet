@@ -27,7 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["car_data"] = $car_data;
 
             // header("Location: index.php");
-            echo 'Redirect1!';
+            echo 'Errors found:';
+            print_r($errors);
             die();
         }
 
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         unset($_SESSION["car_data"]);
         // header("Location: ../cars-data/index.php");
-        echo 'Redirect2!';
+        echo 'Upload successful!';
         $pdo = null;
         $stmt = null;
         die();
@@ -47,28 +48,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 else 
 {
     // header("Location: ../index.php");
-    echo 'Redirect3!';
+    echo 'Request method should be POST!';
     die();
 }
 
 function handle_image_upload()
 {
-    $target_dir = "uploads/";
- 
-    $filecount = 0;
-    $files2 = glob( $target_dir ."*" );
-    if( $files2 ) {
-        $filecount = count($files2);
-    }
-
-    $target_file = $target_dir . strval($filecount) . ".jpg";
+    $target_file = get_target_file();
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     // Check if image file is a actual image or fake image
     if (isset($_POST["submit"])) {
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if ($check !== false) {
+        if ($check) {
             echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
@@ -90,6 +82,7 @@ function handle_image_upload()
     }
 
     // Allow certain file formats
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     if (
         $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif"
@@ -110,6 +103,14 @@ function handle_image_upload()
         }
     }
     return "add-car/" . $target_file;
+}
+
+function get_target_file()
+{
+    $temp = explode(".", $_FILES["fileToUpload"]["name"]);
+    $newfilename = round(microtime(true)) . '.' . end($temp);
+    $target_dir = "uploads/";
+    return $target_dir . $newfilename;
 }
 
 function get_errors($make, $model, $plate_number, $vin, $pdo)
