@@ -20,12 +20,32 @@ else
 {
     try 
     {
+        // Error handlers
+        $errors = [];
+
+        if (is_input_empty($_POST["country"], $_POST["vignette-expiration-date"]))
+        {
+            $errors["empty_input"] = "Fill in all fields!";
+        }   
+
+        if ($errors)
+        {
+            $_SESSION["errors_vignette"] = $errors;
+            header("Location: index.php?id=" . $_POST["car-id"]);
+            die();
+        }
+
         add_vignette($pdo, $_POST["car-id"], $_POST["country"], $_POST["details"], $_POST["vignette-expiration-date"]);
-        header("Location: index.php?id=" . $_POST["car-id"]);
+        header("Location: index.php?id=" . $_POST["car-id"] . "&vignette=success");
         die();
     }
     catch (PDOException $e) 
     {
         die("Query failed: " . $e->getMessage());
     }
+}
+
+function is_input_empty($country, $exp_date)
+{
+    return empty($country) || empty($exp_date);
 }

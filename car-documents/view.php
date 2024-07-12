@@ -56,7 +56,11 @@ function display_itp($car)
             <input type="submit" value="Submit">
         </form>
     <?php
+    display_errors_itp();
+}
 
+function display_errors_itp()
+{
     if (isset($_SESSION['errors_itp']))
     {
         $errors = $_SESSION['errors_itp'];
@@ -68,6 +72,13 @@ function display_itp($car)
             <?php
         }
         unset($_SESSION['errors_itp']);
+    }
+    else if (isset($_GET["itp"]) && $_GET["itp"] === "success")
+    {
+        ?>
+            <br>
+            <p class="form-success">ITP expiration date updated successfully!</p>
+        <?php
     }
 }
 
@@ -136,6 +147,30 @@ function display_vignettes($pdo, $car_id)
             <input type="submit" value="Submit">
         </form>
     <?php
+    display_vignettes_errors();
+}
+
+function display_vignettes_errors()
+{
+    if (isset($_SESSION['errors_vignette']))
+    {
+        $errors = $_SESSION['errors_vignette'];
+        echo '<br>';
+        foreach($errors as $error)
+        {
+            ?>
+                <p class="form-error"><?= $error ?></p>
+            <?php
+        }
+        unset($_SESSION['errors_vignette']);
+    }
+    else if (isset($_GET["vignette"]) && $_GET["vignette"] === "success")
+    {
+        ?>
+            <br>
+            <p class="form-success">Vignette added successfully!</p>
+        <?php
+    }
 }
 
 /**
@@ -222,6 +257,30 @@ function display_insurances($pdo, $car_id)
             <input type="submit" value="Submit">
         </form>
     <?php
+    display_insurances_errors();
+}
+
+function display_insurances_errors()
+{
+    if (isset($_SESSION['errors_insurance']))
+    {
+        $errors = $_SESSION['errors_insurance'];
+        echo '<br>';
+        foreach($errors as $error)
+        {
+            ?>
+                <p class="form-error"><?= $error ?></p>
+            <?php
+        }
+        unset($_SESSION['errors_insurance']);
+    }
+    else if (isset($_GET["insurance"]) && $_GET["insurance"] === "success")
+    {
+        ?>
+            <br>
+            <p class="form-success">Insurance added successfully!</p>
+        <?php
+    }
 }
 
 function display_car_documents(object $pdo, int $car_id)

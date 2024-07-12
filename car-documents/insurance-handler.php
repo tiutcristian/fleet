@@ -20,21 +20,46 @@ else
 {
     try
     {
+        // Error handlers
+        $errors = [];
+
         if (in_array($_POST["insurance-type"], ["RCA", "CASCO", "CMR", "Road Assistance"]) == false)
         {
-            die("Invalid insurance type");
+            $errors["invalid_insurance_type"] = "Invalid insurance type!";
         }
-        $curr_insurances = get_insurances_by_car_id($pdo, $_POST["car-id"]);
-        if (isset($curr_insurances[$_POST["insurance-type"]]))
+        if (is_input_empty($_POST["insurance-type"], $_POST["insurance-expiration-date"]))
         {
-            die("Insurance type already exists");
+            $errors["empty_input"] = "Fill in all fields!";
         }
+        if (insurance_type_exists($_POST["insurance-type"], $pdo, $_POST["car-id"]))
+        {
+            $errors["insurance_exists"] = "Insurance already exists!";
+        }
+
+        if ($errors)
+        {
+            $_SESSION["errors_insurance"] = $errors;
+            header("Location: index.php?id=" . $_POST["car-id"]);
+            die();
+        }
+        
         add_insurance($pdo, $_POST["car-id"], $_POST["insurance-type"], $_POST["details"], $_POST["insurance-expiration-date"]);
-        header("Location: index.php?id=" . $_POST["car-id"]);
+        header("Location: index.php?id=" . $_POST["car-id"] . "&insurance=success");
         die();
     }
     catch (PDOException $e)
     {
         die("Query failed: " . $e->getMessage());
     }
+}
+
+function is_input_empty($ins_type, $exp_date)
+{
+    return empty($ins_type) || empty($exp_date);
+}
+
+function insurance_type_exists($ins_type, $pdo, $car_id)
+{
+    $insurances = get_insurances_by_car_id($pdo, $car_id);
+    return isset($insurances[$ins_type]);
 }

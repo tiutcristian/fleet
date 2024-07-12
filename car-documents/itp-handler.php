@@ -21,10 +21,11 @@ else
     {
         // ERROR HANDLERS
         $errors = [];
-        if ($_POST["itp-expiration-date"] == '')
+        if (empty($_POST["itp-expiration-date"]))
         {
             $errors["date_empty"] = "Fill in expiration date!";
         }
+
         if ($errors)
         {
             $_SESSION["errors_itp"] = $errors;
@@ -33,7 +34,7 @@ else
         }
 
         update_itp($pdo, $_POST["car-id"], $_POST["itp-expiration-date"]);
-        header("Location: index.php?id=" . $_POST["car-id"]);
+        header("Location: index.php?id=" . $_POST["car-id"] . "&itp=success");
         die();
     }
     catch (PDOException $e)
