@@ -27,27 +27,23 @@
                     <br>
                     <input type="submit" value="Login">
                 </form>
+                <?php show_login_errors(); ?>
+                <br><br><br>
+                <form action="../index.php">
+                    <button>Go to homepage</button>
+                </form>
             <?php 
-        } 
+        }
         else 
         { 
             ?>
-                <h3>Logout</h3>
+                <h3>You are still logged in. Logout to login to another account!</h3>
                 <br>
                 <form action="logout-handler.php" method="post">
                     <input type="submit" value="Logout">
                 </form>
             <?php 
         } 
-    
-        show_login_errors();
     ?>
-
-    <br><br><br>
-
-    <form action="../index.php">
-        <button>Go to homepage</button>
-    </form>
-    
 </body>
 </html>

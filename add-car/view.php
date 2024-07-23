@@ -93,24 +93,32 @@ function display_errors ()
 
 function homepage_redirect_button()
 {
-    echo '<form action="../index.php"><button>Go to homepage</button></form>';
+    ?>
+        <form action="../index.php">
+            <button>Go to homepage</button>
+        </form>
+    <?php
 }
 
 function cars_data_redirect_button()
 {
-    echo '<form action="../cars-data/index.php"><button>Go to cars data</button></form>';
-}
-
-function login_redirect_button()
-{
-    echo '<form action="../login/index.php" method="post"><input type="submit" value="Login"></form>';
+    ?>
+        <form action="../cars-data/index.php">
+            <button>Go to cars data</button>
+        </form>
+    <?php
 }
 
 function error_message()
 {
-    echo '<p class="error">You cannot add a car while being logged out.</p>
-          <p class="error">Login first!</p>';
-    login_redirect_button();
+    unset($_SESSION["errors_add_car"]);
+    ?>
+        <p class="error">You are not logged in. Log in to add a car.</p>
+        <p class="error">Login first!</p>
+        <form action="../login/index.php" method="post">
+            <input type="submit" value="Login">
+        </form>
+    <?php
 }
 
 function display_add_car_form()

@@ -23,21 +23,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "model" => $model,
                 "plate_number" => $plate_number,
                 "vin" => $vin
+
             ];
             $_SESSION["car_data"] = $car_data;
-
-            // header("Location: index.php");
-            echo 'Errors found:';
-            print_r($errors);
+            // Redirect to the same page to display errors
+            header("Location: index.php");
             die();
         }
 
         $target_file = handle_image_upload();
         create_car($pdo, strtoupper($make), strtoupper($model), strtoupper($plate_number), strtoupper($vin), $target_file);
-
+        // Car created successfully
         unset($_SESSION["car_data"]);
-        // header("Location: ../cars-data/index.php");
-        echo 'Upload successful!';
+        header("Location: ../cars-data/index.php");
         $pdo = null;
         $stmt = null;
         die();
@@ -47,8 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } 
 else 
 {
-    // header("Location: ../index.php");
-    echo 'Request method should be POST!';
+    // Redirect to the homepage if request method is not POST
+    header("Location: ../index.php");
     die();
 }
 
@@ -57,7 +55,7 @@ function handle_image_upload()
     $target_file = get_target_file();
     $uploadOk = 1;
 
-    // Check if image file is a actual image or fake image
+    // Check if image file is an actual image or fake image
     if (isset($_POST["submit"])) {
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if ($check) {

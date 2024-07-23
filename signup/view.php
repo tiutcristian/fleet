@@ -22,14 +22,14 @@ function signup_inputs ()
     if (isset($_SESSION["signup_data"]["email"]) && !isset($_SESSION["errors_signup"]["email_used"]) && !isset($_SESSION["errors_signup"]["invalid_email"]))
     {
         ?>
-            <input type="text" name="email" placeholder="Email" value="<?= $_SESSION["signup_data"]["email"] ?>">
+            <input type="email" name="email" placeholder="Email" value="<?= $_SESSION["signup_data"]["email"] ?>">
             <br>
         <?php
     }
     else
     {
         ?>
-            <input type="text" name="email" placeholder="Email">
+            <input type="email" name="email" placeholder="Email">
             <br>
         <?php
     }

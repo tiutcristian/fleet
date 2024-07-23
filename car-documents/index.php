@@ -21,10 +21,6 @@ $pdo = connect_db();
         display_car_documents($pdo, $_GET["id"]);
     ?>
 
-    <a href="../cars-data/index.php">
-        <button>Go back to cars list</button>
-    </a>
-
 </body>
 </html>
 

@@ -66,12 +66,12 @@ $pdo = connect_db();
             {
                 cars_data_table($pdo, $_SESSION["user_username"]);
                 add_car_button();
+                homepage_redirect_button();
             }
             else
             {
                 error_message();
             }
-            homepage_redirect_button();
         } 
         catch (PDOException $e) 
         {
