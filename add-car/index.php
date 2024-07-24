@@ -27,16 +27,7 @@
 </head>
 <body>
     
-<?php
-    if (isset($_SESSION["user_id"]))
-    {
-        display_add_car_form();
-        display_errors();
-        cars_data_redirect_button();
-    }
-    else
-        error_message();
-?>
+    <?php display_add_car_form(); ?>
 
 </body>
 </html>

@@ -17,9 +17,7 @@ $pdo = connect_db();
 </head>
 <body>
 
-    <?php
-        display_car_documents($pdo, $_GET["id"]);
-    ?>
+    <?php display_car_documents($pdo, $_GET["id"]); ?>
 
 </body>
 </html>

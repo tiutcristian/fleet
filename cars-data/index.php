@@ -59,36 +59,7 @@ $pdo = connect_db();
 </head>
 <body>
 
-    <?php 
-        try 
-        {
-            if(isset($_SESSION["user_id"]))
-            {
-                cars_data_table($pdo, $_SESSION["user_username"]);
-                add_car_button();
-                homepage_redirect_button();
-            }
-            else
-            {
-                error_message();
-            }
-        } 
-        catch (PDOException $e) 
-        {
-            die("Query failed: " . $e->getMessage());
-        }
-    ?> 
-
-    <div id="pop-up-container">
-        <div class="pop-up">
-            <div>Are you sure you want to delete <span id="plate-number-container"></span></div>
-            <button id="yes-button">Yes</button>
-            <form action="delete-handler.php" method="post" id="delete-car-form" style="display:none;">
-                <input type="text" name="car-id" id="car-id">
-            </form>
-            <button onclick="hidePopUp()">No</button>
-        </div>
-    </div>  
+    <?php display_cars_data($pdo); ?> 
 
 </body>
 </html>

@@ -23,3 +23,36 @@ function show_login_errors()
         echo '<p class="form-success">Login success!</p>';
     }
 }
+
+function display_login_form()
+{
+    if (!isset($_SESSION["user_id"])) 
+    { 
+        ?>
+            <h3>Login</h3>
+            <br>
+            <form action="login-handler.php" method="post">
+                <input type="text" name="username" placeholder="Username">
+                <br>
+                <input type="password" name="pwd" placeholder="Password">
+                <br>
+                <input type="submit" value="Login">
+            </form>
+            <?php show_login_errors(); ?>
+            <br><br><br>
+            <form action="../index.php">
+                <button>Go to homepage</button>
+            </form>
+        <?php 
+    }
+    else 
+    { 
+        ?>
+            <h3>You are still logged in. Logout to login to another account!</h3>
+            <br>
+            <form action="logout-handler.php" method="post">
+                <input type="submit" value="Logout">
+            </form>
+        <?php 
+    } 
+}

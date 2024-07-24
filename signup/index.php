@@ -13,37 +13,9 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST" || !isset($_SESSION["user_id"]))
-        {
-            ?>
-                <h3>Signup</h3>
-                <br>
-                <form action="handler.php" method="post">
-                    <?php
-                        signup_inputs();
-                    ?>
-                    <input type="submit" value="Signup">
-                </form>
-                <?php 
-                    display_signup_errors();
-                ?>
-                <br><br><br>
-                <form action="../index.php"><button>Go to homepage</button></form>
-            <?php
-        }
-        else
-        {
-            ?>
-                <p class="error">You cannot access signup page while being logged in.</p>
-                <p class="error">Logout first!</p>
-                <br><br><br>
-                <form action="../login/logout-handler.php" method="post">
-                    <input type="submit" value="Logout">
-                </form>
-            <?php
-        }
-    ?>
+
+    <?php display_singup_form(); ?>
+    
 </body>
 </html>
 

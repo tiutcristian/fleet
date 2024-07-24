@@ -5,9 +5,7 @@ declare(strict_types=1);
 function display_image($car)
 {
     $path_to_image = "../" . $car["path_to_image"];
-    ?>
-        <img src="<?=$path_to_image?>" alt="Image not found">
-    <?php
+    ?> <img src="<?=$path_to_image?>" alt="Image not found"> <?php
 }
 
 /**
@@ -20,18 +18,14 @@ function display_image($car)
 */
 function display_itp($car)
 {
-    ?>
-        <h3>ITP expiration date:</h3>
-    <?php
+    ?> <h3>ITP expiration date:</h3> <?php
     if (isset($car["itp_exp_date"]))
     {
         // handle isset:
         $exp_date = strtotime($car["itp_exp_date"]);
         if ($exp_date < time())
         {
-            ?>
-                <h3 style="color: red;">[Expired]</h3>
-            <?php
+            ?> <h3 style="color: red;">[Expired]</h3> <?php
         }
         ?>
             <h3> Expiration Date: <?= date('d.m.Y', $exp_date) ?> </h3>
@@ -41,9 +35,7 @@ function display_itp($car)
     else
     {
         // handle not isset:
-        ?>
-            <h3> No expiration date set. Set one below: </h3>
-        <?php
+        ?> <h3> No expiration date set. Set one below: </h3> <?php
     }
 
     ?>
@@ -64,21 +56,16 @@ function display_errors_itp()
     if (isset($_SESSION['errors_itp']))
     {
         $errors = $_SESSION['errors_itp'];
-        echo '<br>';
+        ?> <br> <?php
         foreach($errors as $error)
         {
-            ?>
-                <p class="form-error"><?= $error ?></p>
-            <?php
+            ?> <p class="form-error"><?= $error ?></p> <?php
         }
         unset($_SESSION['errors_itp']);
     }
     else if (isset($_GET["itp"]) && $_GET["itp"] === "success")
     {
-        ?>
-            <br>
-            <p class="form-success">ITP expiration date updated successfully!</p>
-        <?php
+        ?> <br> <p class="form-success">ITP expiration date updated successfully!</p> <?php
     }
 }
 
@@ -95,11 +82,10 @@ function display_errors_itp()
 function display_vignettes($pdo, $car_id)
 {
     $vignettes = get_vignettes_by_car_id($pdo, $car_id);
-
-    echo '<h3>Vignettes:</h3>';
+    ?> <h3>Vignettes:</h3> <?php
     if (count($vignettes) == 0)
     {
-        echo '<h3> No vignettes found. Add one below: </h3>';
+        ?> <h3> No vignettes found. Add one below: </h3> <?php
     }
     else
     {
@@ -108,9 +94,7 @@ function display_vignettes($pdo, $car_id)
             $exp_date = strtotime($vignettes[$i]["expiration_date"]);
             if ($exp_date < time())
             {
-                ?>
-                    <h3 style="color: red;">[Expired]</h3>
-                <?php
+                ?> <h3 style="color: red;">[Expired]</h3> <?php
             }
             ?>
                 <h3>Vignette <?= $i + 1 ?>: <?= $vignettes[$i]["country"] ?> </h3>
@@ -118,9 +102,7 @@ function display_vignettes($pdo, $car_id)
             <?php
             if ($vignettes[$i]["details"] != "")
             {
-                ?>
-                    <h3>Details: <?= $vignettes[$i]["details"] ?> </h3>
-                <?php
+                ?> <h3>Details: <?= $vignettes[$i]["details"] ?> </h3> <?php
             }
             ?>
                 <form action="delete-vignette.php", method="post">
@@ -128,8 +110,8 @@ function display_vignettes($pdo, $car_id)
                     <input type="hidden" id="car-id" name="car-id" value="<?= $car_id ?>" />
                     <input type="submit" value="Delete">
                 </form>
+                <br>
             <?php
-            echo '<br>';
         }
     }
 
@@ -155,21 +137,16 @@ function display_vignettes_errors()
     if (isset($_SESSION['errors_vignette']))
     {
         $errors = $_SESSION['errors_vignette'];
-        echo '<br>';
+        ?> <br> <?php
         foreach($errors as $error)
         {
-            ?>
-                <p class="form-error"><?= $error ?></p>
-            <?php
+            ?> <p class="form-error"><?= $error ?></p> <?php
         }
         unset($_SESSION['errors_vignette']);
     }
     else if (isset($_GET["vignette"]) && $_GET["vignette"] === "success")
     {
-        ?>
-            <br>
-            <p class="form-success">Vignette added successfully!</p>
-        <?php
+        ?> <br> <p class="form-success">Vignette added successfully!</p> <?php
     }
 }
 
@@ -199,9 +176,7 @@ function display_insurances($pdo, $car_id)
     $insurances = get_insurances_by_car_id($pdo, $car_id);
     if (count($insurances) == 0)
     {
-        ?>
-            <h3> No insurances found. Add one below: </h3>
-        <?php
+        ?> <h3> No insurances found. Add one below: </h3> <?php
     }
     else
     {
@@ -211,9 +186,7 @@ function display_insurances($pdo, $car_id)
             $exp_date = strtotime($insurance["expiration_date"]);
             if ($exp_date < time())
             {
-                ?>
-                    <h3 style="color: red;">[Expired]</h3>
-                <?php
+                ?> <h3 style="color: red;">[Expired]</h3> <?php
             }
             ?>
                 <h3><?= $instype ?>:</h3>
@@ -221,9 +194,7 @@ function display_insurances($pdo, $car_id)
             <?php
             if ($insurances[$instype]["details"] != "")
             {
-                ?>
-                    <h4>Details: <?= $insurances[$instype]["details"] ?></h4>
-                <?php
+                ?> <h4>Details: <?= $insurances[$instype]["details"] ?></h4> <?php
             }
             ?>
                 <form action="delete-insurance.php", method="post">
@@ -265,21 +236,16 @@ function display_insurances_errors()
     if (isset($_SESSION['errors_insurance']))
     {
         $errors = $_SESSION['errors_insurance'];
-        echo '<br>';
+        ?><br><?php
         foreach($errors as $error)
         {
-            ?>
-                <p class="form-error"><?= $error ?></p>
-            <?php
+            ?> <p class="form-error"><?= $error ?></p> <?php
         }
         unset($_SESSION['errors_insurance']);
     }
     else if (isset($_GET["insurance"]) && $_GET["insurance"] === "success")
     {
-        ?>
-            <br>
-            <p class="form-success">Insurance added successfully!</p>
-        <?php
+        ?> <br> <p class="form-success">Insurance added successfully!</p> <?php
     }
 }
 
@@ -300,9 +266,7 @@ function display_car_documents(object $pdo, int $car_id)
     {
         if ($_SESSION["user_id"] != $car["user_id"]) 
         {
-            ?>
-                <h3> You are not the owner of this car. </h3>
-            <?php
+            ?> <h3> You are not the owner of this car. </h3> <?php
         }
         else
         {
@@ -310,16 +274,16 @@ function display_car_documents(object $pdo, int $car_id)
                 <h3>Car id: <?= $car_id ?> </h3>
                 <h3>VIN Number: <?= $car["vin"] ?> </h3>
                 <h3>License Plate: <?= $car["plate_number"] ?> </h3>
-            <?php
-            echo '<br><br><br>';
-            display_image($car);
-            echo '<br><br><br>';
-            display_itp($car);
-            echo '<br><br><br>';
-            display_vignettes($pdo, $car_id);
-            echo '<br><br><br>';
-            display_insurances($pdo, $car_id);
-            echo '<br><br><br>';
+                <br><br><br>
+                <?php display_image($car); ?>
+                <br><br><br>
+                <?php display_itp($car); ?>
+                <br><br><br>
+                <?php display_vignettes($pdo, $car_id); ?>
+                <br><br><br>
+                <?php display_insurances($pdo, $car_id); ?>
+                <br><br><br>
+            <?php 
             $pdo = null;
         }
         ?>
@@ -328,5 +292,4 @@ function display_car_documents(object $pdo, int $car_id)
             </a>
         <?php
     }
-    
 }

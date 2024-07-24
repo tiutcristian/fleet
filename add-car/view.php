@@ -76,58 +76,48 @@ function display_car_inputs ()
 
 function display_errors ()
 {
+    ?> <br> <?php
     if (isset($_SESSION['errors_add_car']))
     {
         $errors = $_SESSION['errors_add_car'];
-
-        echo "<br>";
-        foreach($errors as $error)
-            echo '<p class="form-error">' . $error . '</p>';
-
+        foreach($errors as $error) 
+        {
+            ?> <p class="form-error"><?=$error?></p> <?php
+        }
         unset($_SESSION['errors_add_car']);
     }
     else if (isset($_GET["addcar"]) && $_GET["addcar"] === "success")
-        echo '<br>
-              <p class="form-success">Car added successfully!</p>';
-}
-
-function homepage_redirect_button()
-{
-    ?>
-        <form action="../index.php">
-            <button>Go to homepage</button>
-        </form>
-    <?php
-}
-
-function cars_data_redirect_button()
-{
-    ?>
-        <form action="../cars-data/index.php">
-            <button>Go to cars data</button>
-        </form>
-    <?php
-}
-
-function error_message()
-{
-    unset($_SESSION["errors_add_car"]);
-    ?>
-        <p class="error">You are not logged in. Log in to add a car.</p>
-        <p class="error">Login first!</p>
-        <form action="../login/index.php" method="post">
-            <input type="submit" value="Login">
-        </form>
-    <?php
+    {
+        ?> <p class="form-success">Car added successfully!</p> <?php
+    }
 }
 
 function display_add_car_form()
 {
-    ?>
-    <h3>Add a car</h3> <br>
-        <form action="handler.php" method="post" enctype="multipart/form-data">
-            <?php display_car_inputs(); ?>
-            <input type="submit" value="Add">
-        </form>
-    <?php
+    if (isset($_SESSION["user_id"]))
+    {
+        ?>
+        <h3>Add a car</h3> <br>
+            <form action="handler.php" method="post" enctype="multipart/form-data">
+                <?php display_car_inputs(); ?>
+                <input type="submit" value="Add">
+            </form>
+            <?php display_errors(); ?>
+            <form action="../cars-data/index.php">
+                <button>Go to cars data</button>
+            </form>
+        <?php
+    }
+    else
+    {
+        unset($_SESSION["errors_add_car"]);
+        ?>
+            <p class="error">You are not logged in. Log in to add a car.</p>
+            <p class="error">Login first!</p>
+            <form action="../login/index.php" method="post">
+                <input type="submit" value="Login">
+            </form>
+        <?php
+    }
+    
 }
