@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "model" => $model,
                 "plate_number" => $plate_number,
                 "vin" => $vin
-
             ];
             $_SESSION["car_data"] = $car_data;
             // Redirect to the same page to display errors
@@ -128,6 +127,9 @@ function get_errors($make, $model, $plate_number, $vin, $pdo)
     }
     if (is_plate_taken($pdo, strtoupper($plate_number))) {
         $errors["taken_plate"] = "Plate number is taken!";
+    }
+    if ($_FILES["fileToUpload"]["error"] == 4) {
+        $errors["no_image"] = "No image uploaded!";
     }
     return $errors;
 }

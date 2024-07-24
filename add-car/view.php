@@ -68,7 +68,8 @@ function display_car_inputs ()
         <?php
     }
 
-    ?>
+    // "Image" input
+    ?> 
         Select image to upload:
         <input type="file" name="fileToUpload" id="fileToUpload"> <br>
     <?php
