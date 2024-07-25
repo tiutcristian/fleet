@@ -6,6 +6,7 @@ require_once '../includes/db-setup.php';
 $pdo = connect_db();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SESSION["user_role"] === "admin") $username = $_POST["username"];
     $make = $_POST["make"];
     $model = $_POST["model"];
     $plate_number = $_POST["plate_number"];
@@ -30,8 +31,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             die();
         }
 
+        if($_SESSION["user_role"] === "admin")
+        {
+            $user = get_user($pdo, $username);
+            if (!$user) {
+                $_SESSION["errors_add_car"]["no_user"] = "User does not exist!";
+                $_SESSION["car_data"]["username"] = $username;
+                header("Location: index.php");
+                die();
+            }
+            else
+            {
+                $user_id = $user["id"];
+            }
+        }
+        else
+        {
+            $user_id = $_SESSION["user_id"];
+        }
+
         $target_file = handle_image_upload();
-        create_car($pdo, strtoupper($make), strtoupper($model), strtoupper($plate_number), strtoupper($vin), $target_file);
+        create_car($pdo, $user_id, strtoupper($make), strtoupper($model), strtoupper($plate_number), strtoupper($vin), $target_file);
         // Car created successfully
         unset($_SESSION["car_data"]);
         header("Location: ../cars-data/index.php");

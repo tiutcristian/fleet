@@ -6,7 +6,7 @@ $pdo = connect_db();
 
 try 
 {
-    delete_car($pdo, $_POST["car-id"], $_SESSION["user_id"]);
+    delete_car($pdo, $_POST["car-id"], $_SESSION["user_id"], $_SESSION["user_role"]);
     header("Location: index.php");
     die();
 }

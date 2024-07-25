@@ -26,11 +26,34 @@ function get_user_cars (object $pdo, string $username)
     return $result_array;
 }
 
-function delete_car(object $pdo, int $id, int $user_id)
+function get_all_cars (object $pdo)
 {
-    $query = "DELETE FROM cars WHERE id=:id AND user_id=:user_id";
+    $query = "SELECT cars.*, username FROM cars JOIN users ON cars.user_id = users.id";
     $stmt = $pdo->prepare($query);
+    $stmt->execute();
+
+    $result_array = array();
+    while($tmp = $stmt->fetch(PDO::FETCH_ASSOC))
+    {
+        array_push($result_array, $tmp);
+    }
+
+    return $result_array;
+}
+
+function delete_car(object $pdo, int $id, int $user_id, string $role)
+{
+    if ($role == "admin")
+    {
+        $query = "DELETE FROM cars WHERE id=:id";
+        $stmt = $pdo->prepare($query);
+    }
+    else
+    {
+        $query = "DELETE FROM cars WHERE id=:id AND user_id=:user_id";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(":user_id", $user_id);
+    }
     $stmt->bindParam(":id", $id);
-    $stmt->bindParam(":user_id", $user_id);
     $stmt->execute();
 }

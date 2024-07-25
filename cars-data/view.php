@@ -1,8 +1,15 @@
 <?php
 
-function cars_data_table (object $pdo, string $username)
+function cars_data_table (object $pdo, string $username, string $role)
 {
-    $result = get_user_cars($pdo, $username);
+    if($role == "admin")
+    {
+        $result = get_all_cars($pdo);
+    }
+    else
+    {
+        $result = get_user_cars($pdo, $username);
+    }
     if($result)
     {
         ?>
@@ -10,6 +17,7 @@ function cars_data_table (object $pdo, string $username)
             <table>
                 <tr>
                     <th>Nr. Crt.</th>
+                    <?php if($role == "admin") { ?> <th>Owner</th> <?php } ?>
                     <th>Make</th>
                     <th>Model</th>
                     <th>VIN Number</th>
@@ -24,6 +32,7 @@ function cars_data_table (object $pdo, string $username)
             ?>
                 <tr>
                     <td><?= $count ?></td>
+                    <?php if($role == "admin") { ?> <td><?= $car["username"] ?></td> <?php } ?>
                     <td><?= $car["make"] ?></td>
                     <td><?= $car["model"] ?></td>
                     <td><?= $car["vin"] ?></td>
@@ -113,21 +122,21 @@ function display_delete_pop_up()
 function display_cars_data($pdo)
 {
     try 
+    {
+        if(isset($_SESSION["user_id"]))
         {
-            if(isset($_SESSION["user_id"]))
-            {
-                cars_data_table($pdo, $_SESSION["user_username"]);
-                add_car_button();
-                homepage_redirect_button();
-            }
-            else
-            {
-                error_message();
-            }
-        } 
-        catch (PDOException $e) 
-        {
-            die("Query failed: " . $e->getMessage());
+            cars_data_table($pdo, $_SESSION["user_username"], $_SESSION["user_role"]);
+            add_car_button();
+            homepage_redirect_button();
         }
-        display_delete_pop_up(); 
+        else
+        {
+            error_message();
+        }
+    } 
+    catch (PDOException $e) 
+    {
+        die("Query failed: " . $e->getMessage());
+    }
+    display_delete_pop_up(); 
 }

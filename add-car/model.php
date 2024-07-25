@@ -24,7 +24,7 @@ function get_entry_by_plate(object $pdo, string $plate_number)
     return $result;
 }
 
-function create_car(object $pdo, string $make, string $model, string $plate_number, string $vin, string $path_to_image)
+function create_car(object $pdo, $user_id, string $make, string $model, string $plate_number, string $vin, string $path_to_image)
 {
     $query = "INSERT INTO cars (make, model, plate_number, vin, path_to_image, user_id) VALUES 
             (:make, :model, :plate_number, :vin, :path_to_image, :user_id);";
@@ -34,6 +34,17 @@ function create_car(object $pdo, string $make, string $model, string $plate_numb
     $stmt->bindParam(":plate_number", $plate_number);
     $stmt->bindParam(":vin", $vin);
     $stmt->bindParam(":path_to_image", $path_to_image);
-    $stmt->bindParam(":user_id", $_SESSION['user_id']);
+    $stmt->bindParam(":user_id", $user_id);
     $stmt->execute();
+}
+
+function get_user (object $pdo, string $username)
+{
+    $query = "SELECT id FROM users WHERE username = :username";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":username", $username);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
 }

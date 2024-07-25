@@ -2,8 +2,24 @@
 
 declare(strict_types=1);
 
-function display_car_inputs ()
+function display_car_inputs (string $role)
 {
+    if ($role === "admin")
+    {
+        if(isset($_SESSION["car_data"]["username"]))
+        {
+            ?>
+                <input type="text" name="username" id="username" placeholder="Username" 
+                value="<?=$_SESSION["car_data"]["username"]?>"> <br>
+            <?php
+        }
+        else
+        {
+            ?>
+                <input type="text" name="username" id="username" placeholder="Username"> <br>
+            <?php
+        }
+    }
     // "Make" input
     if(isset($_SESSION["car_data"]["make"]))
     {
@@ -100,7 +116,7 @@ function display_add_car_form()
         ?>
         <h3>Add a car</h3> <br>
             <form action="handler.php" method="post" enctype="multipart/form-data">
-                <?php display_car_inputs(); ?>
+                <?php display_car_inputs($_SESSION["user_role"]); ?>
                 <input type="submit" value="Add">
             </form>
             <?php display_errors(); ?>
