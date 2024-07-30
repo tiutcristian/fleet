@@ -41,7 +41,7 @@ function display_login_form()
             <?php show_login_errors(); ?>
             <br><br><br>
             <form action="../index.php">
-                <button>Go to homepage</button>
+                <button class="outline">Go to homepage</button>
             </form>
         <?php 
     }

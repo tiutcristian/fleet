@@ -121,7 +121,7 @@ function display_add_car_form()
             </form>
             <?php display_errors(); ?>
             <form action="../cars-data/index.php">
-                <button>Go to cars data</button>
+                <button class="outline">Back to dashboard</button>
             </form>
         <?php
     }

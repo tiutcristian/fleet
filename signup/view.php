@@ -55,7 +55,9 @@ function display_singup_form()
             </form>
             <?php display_signup_errors(); ?>
             <br><br><br>
-            <form action="../index.php"><button>Go to homepage</button></form>
+            <form action="../index.php">
+                <button class="outline">Go to homepage</button>
+            </form>
         <?php
     }
     else

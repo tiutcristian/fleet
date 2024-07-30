@@ -10,11 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="../css/reset.css">  
     <link rel="stylesheet" href="../css/main.css"> -->
+
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
+    
     <title>Document</title>
 </head>
 <body>
 
-    <?php display_singup_form(); ?>
+    <main class="container">
+        <?php display_singup_form(); ?>
+    </main>
     
 </body>
 </html>

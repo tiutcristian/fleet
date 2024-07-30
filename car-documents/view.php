@@ -288,7 +288,7 @@ function display_car_documents(object $pdo, int $car_id)
         }
         ?>
             <a href="../cars-data/index.php">
-                <button>Back to cars</button>
+                <button class="outline">Back to dashboard</button>
             </a>
         <?php
     }

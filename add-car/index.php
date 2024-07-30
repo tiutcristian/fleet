@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="../css/reset.css">  
     <link rel="stylesheet" href="../css/main.css"> -->
+
+    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
+    
     <style>
         .form-error {
             margin-left: 40%;
@@ -27,7 +30,9 @@
 </head>
 <body>
     
+<main class="container">
     <?php display_add_car_form(); ?>
+</main>
 
 </body>
 </html>

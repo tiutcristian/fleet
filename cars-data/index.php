@@ -13,13 +13,18 @@ $pdo = connect_db();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="../css/reset.css"> 
     <link rel="stylesheet" href="../css/main.css"> -->
+
+    <!-- main stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
+    
+    <!-- stylesheet that contains the icons for the buttons in the car table -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         #pop-up-container {
             position: fixed;
             left: 0;
             top: 0;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(255, 255, 255, 0.15);
             width: 100%;
             height: 100%;
             display: flex;
@@ -31,18 +36,41 @@ $pdo = connect_db();
         .pop-up {
             border-radius: 15px;
             padding: 10px 10px 10px 10px;
-            background-color: lightgray;
+            background-color: #11191F;
+            color: lightblue;
             width: min(600px, 90vw);
-            /*height: 150px;*/
         }
 
         .center-container {
             display: flex;
             justify-content: center;
         }
+
+        .tools-buttons {
+            display: flex;
+            gap: 2%;
+        }
+ 
+        table .car-img-cell{
+            min-width: 200px;
+        }
+
+        table td {
+            max-width: 200px;
+            font-size: medium;
+        }
+
+        .btn-small {
+            padding: 5px 5px;
+            font-size: 15px;
+        }
+/*
+        .table-buttons {
+            display: flex;
+            gap: 10px;
+        } */
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Document</title>
+    <title>Fleet</title>
     <script>
         function onDelete (license_plate, id) {
             document.getElementById("pop-up-container").style.visibility = "visible";
@@ -56,11 +84,23 @@ $pdo = connect_db();
         function hidePopUp () {
             document.getElementById("pop-up-container").style.visibility = "hidden";
         }
+
+        function redirectToCarDocuments (id) {
+            window.location.href = `../car-documents/index.php?id=${id}`;
+        }
     </script>
 </head>
 <body>
 
-    <?php display_cars_data($pdo); ?> 
+    <!-- Main section -->
+    <main class="container">
+        <div class="grid">
+            <section>
+                <h2>Dashboard</h2>
+                <?php display_page_content($pdo); ?> 
+            </section>
+        </div>
+    </main>
 
 </body>
 </html>
