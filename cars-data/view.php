@@ -119,11 +119,14 @@ function display_delete_pop_up()
         <div id="pop-up-container">
             <div class="pop-up">
                 <div>Are you sure you want to delete <span id="plate-number-container"></span></div>
-                <button id="yes-button">Yes</button>
-                <form action="delete-handler.php" method="post" id="delete-car-form" style="display:none;">
-                    <input type="text" name="car-id" id="car-id">
-                </form>
-                <button onclick="hidePopUp()">No</button>
+                <br>
+                <div class="center-container">
+                    <button id="yes-button">Yes</button>
+                    <form action="delete-handler.php" method="post" id="delete-car-form" style="display:none;">
+                        <input type="text" name="car-id" id="car-id">
+                    </form>
+                    <button onclick="hidePopUp()">No</button>
+                </div>
             </div>
         </div> 
     <?php

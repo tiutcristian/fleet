@@ -8,31 +8,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../css/reset.css">  
-    <link rel="stylesheet" href="../css/main.css"> -->
 
+    <!-- Picocss -->
     <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
-    
-    <style>
-        .form-error {
-            margin-left: 40%;
-            color: red;
-            text-decoration: solid;
-        }
 
-        .form-success {
-            margin-left: 40%;
-            color: rgb(0, 190, 0);
-            text-decoration: solid;
-        }
-    </style>
-    <title>Document</title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    
+    <title>Add car</title>
 </head>
 <body>
-    
-<main class="container">
-    <?php display_add_car_form(); ?>
-</main>
-
+    <main class="container">
+        <div class="form-container">
+            <?php display_add_car_form(); ?>
+        </div>
+    </main>
 </body>
 </html>

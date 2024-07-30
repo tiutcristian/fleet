@@ -11,12 +11,14 @@ $pdo = connect_db();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/main.css"> -->
 
+    <!-- Picocss -->
     <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/main.css">
     
-    <title>Document</title>
+    <title>Car documents</title>
 </head>
 <body>
 

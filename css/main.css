@@ -1,44 +1,7 @@
-body {
-    font-family: 'Roboto', sans-serif;
-    margin-top: 5%;
-    background-color: lightgray;
-    display: block;
-}
-
-h3 {
-    margin-left: 40%;
-}
-
-input {
-    background-color: white;
-}
-
-input[type=submit] {
-    background-color: gray;
-    text-align: center;
-    color: lightgray;
-}
-
-input,
-input[type=submit] {
-    padding: 10px;
-    border-radius: 10px;
-    width: 20%;
-    margin-left: 40%;
-    margin-top: 10px;
-}
-
-input[type=submit]:hover {
-    background-color: rgb(102, 102, 102);
-    cursor: pointer;
-}
-
-label {
-    margin-left: 40%;
-}
-
-select {
-    margin-left: 40%;
+.form-container {
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .form-error {
@@ -53,76 +16,11 @@ select {
     text-decoration: solid;
 }
 
-
-button {
-    background-color: aquamarine;
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    
-}
-
-button:hover {
-    background-color: rgb(10, 255, 173);
-    cursor: pointer;
-}
-
-.error {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: lightcoral;
-    text-align: center;
-    color: brown;
-}
-
-table {
-    background-color: rgb(10, 255, 173);
-    width: 800px;
-    max-width: 95%;
-    min-width: 600px;
-    border-radius: 15px;
-    margin: 50px auto;
-}
-
-td {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 200px;
-}
-
-th, td {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-th {
-    height: 50px;
-    vertical-align: middle;
-    border-bottom: 2px cadetblue solid;
-}
-
-td.btn-column {
-    min-width: 90px;
-    display: flex;
-    justify-content: right;
-}
-
-.icon-btn {
-    border-radius: 15px;
-    background-color: rgb(10, 255, 173);
-}
-
-.icon-btn:hover {
-    background-color: aquamarine;
-}
-
 #pop-up-container {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.15);
     width: 100%;
     height: 100%;
     display: flex;
@@ -133,13 +31,41 @@ td.btn-column {
 
 .pop-up {
     border-radius: 15px;
-    padding: 10px 10px 10px 10px;
-    background-color: lightgray;
-    width: min(600px, 90vw);
-    /*height: 150px;*/
+    padding: 20px 30px 20px 30px;
+    background-color: #11191F;
+    color: lightblue;
+    width: auto;
 }
 
 .center-container {
     display: flex;
     justify-content: center;
+    gap: 5%;
+}
+
+.tools-buttons {
+    display: flex;
+    gap: 2%;
+}
+
+table .car-img-cell{
+    min-width: 200px;
+}
+
+table td {
+    max-width: 200px;
+    font-size: medium;
+}
+
+.btn-small {
+    padding: 5px 5px;
+    font-size: 15px;
+}
+
+.error {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: lightcoral;
+    text-align: center;
+    color: brown;
 }

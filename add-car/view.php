@@ -114,7 +114,7 @@ function display_add_car_form()
     if (isset($_SESSION["user_id"]))
     {
         ?>
-        <h3>Add a car</h3> <br>
+            <h3>Add a car</h3> <br>
             <form action="handler.php" method="post" enctype="multipart/form-data">
                 <?php display_car_inputs($_SESSION["user_role"]); ?>
                 <input type="submit" value="Add">
@@ -129,8 +129,8 @@ function display_add_car_form()
     {
         unset($_SESSION["errors_add_car"]);
         ?>
-            <p class="error">You are not logged in. Log in to add a car.</p>
-            <p class="error">Login first!</p>
+            <p class="error">You are not logged in!</p>
+            <p class="error">Log in to add a car.</p>            
             <form action="../login/index.php" method="post">
                 <input type="submit" value="Login">
             </form>
