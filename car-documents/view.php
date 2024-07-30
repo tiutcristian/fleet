@@ -249,7 +249,7 @@ function display_insurances_errors()
     }
 }
 
-function display_car_documents(object $pdo, int $car_id)
+function display_car_documents(object $pdo, int $car_id, string $user_role)
 {
 
     $car = get_car_by_id($pdo, $car_id);
@@ -264,7 +264,7 @@ function display_car_documents(object $pdo, int $car_id)
     }
     else
     {
-        if ($_SESSION["user_id"] != $car["user_id"]) 
+        if ($user_role === "user" && $_SESSION["user_id"] != $car["user_id"]) 
         {
             ?> <h3> You are not the owner of this car. </h3> <?php
         }

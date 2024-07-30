@@ -23,7 +23,7 @@ $pdo = connect_db();
 <body>
 
 <main class="container">
-    <?php display_car_documents($pdo, $_GET["id"]); ?>
+    <?php display_car_documents($pdo, $_GET["id"], $_SESSION["user_role"]); ?>
 </main>
 
 </body>
