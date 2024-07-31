@@ -256,10 +256,10 @@ function display_car_documents(object $pdo, int $car_id, string $user_role)
     if (!isset($_SESSION["user_id"]))
     {
         ?>
-            <h3> You are not logged in. Log in to see car documents. </h3>
-            <a href="../login/index.php">
-                <button>Log in</button>
-            </a>
+            <p class="error">You are not logged in. <br> Login first.</p>         
+            <form action="../login/index.php" method="post">
+                <input type="submit" value="Login">
+            </form>
         <?php
     }
     else

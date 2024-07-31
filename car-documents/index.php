@@ -23,7 +23,20 @@ $pdo = connect_db();
 <body>
 
 <main class="container">
-    <?php display_car_documents($pdo, $_GET["id"], $_SESSION["user_role"]); ?>
+    <?php
+        if (isset($_SESSION["user_role"])) {
+            display_car_documents($pdo, $_GET["id"], $_SESSION["user_role"]);
+        } else {
+            ?>
+                <div class="form-container">
+                    <p class="error">You are not logged in. <br> Login first.</p>         
+                    <form action="../login/index.php" method="post">
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
+            <?php
+        }
+    ?>
 </main>
 
 </body>

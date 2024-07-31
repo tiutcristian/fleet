@@ -60,7 +60,7 @@ require_once 'includes/config-session.php';
                 {
                     ?>
                         <a href="cars-data/index.php">
-                            <button>Go to cars</button>
+                            <button>Go to dashboard</button>
                         </a>                    
                         <form action="login/logout-handler.php" method="post">
                             <button class="outline">Logout</button>

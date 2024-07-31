@@ -21,11 +21,12 @@ function display_page_content($pdo)
         else
         {
             ?>
-                <p class="error">You cannot access cars page while being logged out.</p>
-                <p class="error">Login first!</p>
-                <form action="../login/index.php" method="post">
-                    <input type="submit" value="Login">
-                </form>
+                <div class="form-container">
+                    <p class="error">You are not logged in. <br> Login first.</p>
+                    <form action="../login/index.php" method="post">
+                        <input type="submit" value="Login">
+                    </form>
+                </div>
             <?php
         }
     } 

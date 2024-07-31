@@ -48,9 +48,8 @@ function display_login_form()
     else 
     { 
         ?>
-            <h3>You are still logged in. Logout to login to another account!</h3>
-            <br>
-            <form action="logout-handler.php" method="post">
+            <p class="error">You cannot access login page while being logged in.</p>
+            <form action="../login/logout-handler.php" method="post">
                 <input type="submit" value="Logout">
             </form>
         <?php 

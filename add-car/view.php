@@ -129,8 +129,7 @@ function display_add_car_form()
     {
         unset($_SESSION["errors_add_car"]);
         ?>
-            <p class="error">You are not logged in!</p>
-            <p class="error">Log in to add a car.</p>            
+            <p class="error">You are not logged in. <br> Login first.</p>         
             <form action="../login/index.php" method="post">
                 <input type="submit" value="Login">
             </form>

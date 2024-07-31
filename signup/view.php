@@ -64,8 +64,6 @@ function display_singup_form()
     {
         ?>
             <p class="error">You cannot access signup page while being logged in.</p>
-            <p class="error">Logout first!</p>
-            <br><br><br>
             <form action="../login/logout-handler.php" method="post">
                 <input type="submit" value="Logout">
             </form>
