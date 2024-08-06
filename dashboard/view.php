@@ -7,12 +7,9 @@ function display_page_content($pdo)
         if(isset($_SESSION["user_id"]))
         {
             ?>
-                <div class="tools-buttons">
+                <div class="dashboard-tool-buttons">
                     <form action="../add-car/index.php" method="post">
                         <button>Add a car</button>
-                    </form>
-                    <form action="../index.php" method="post">
-                        <button class="outline">Go to homepage</button>
                     </form>
                 </div>
             <?php
@@ -121,7 +118,7 @@ function display_delete_pop_up()
             <div class="pop-up">
                 <div>Are you sure you want to delete <span id="plate-number-container"></span></div>
                 <br>
-                <div class="center-container">
+                <div class="flex-center-container">
                     <button id="yes-button">Yes</button>
                     <form action="delete-handler.php" method="post" id="delete-car-form" style="display:none;">
                         <input type="text" name="car-id" id="car-id">

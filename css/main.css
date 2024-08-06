@@ -1,21 +1,62 @@
+/** ====================== General ========================== */
+.container-suprem {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.error {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: lightcoral;
+    text-align: center;
+    color: brown;
+}
+
+form.button-link {
+    margin-bottom: 0px;
+}
+
+.nav-bar-title {
+    font-size: 26px;
+    color: inherit;
+}
+
+.button-cell{
+    width: 80px;
+}
+/** ========================================================= */
+
+
+
+/** ========================= Forms ========================= */
 .form-container {
-    width: 30%;
+    width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .form-error {
-    margin-left: 40%;
     color: red;
     text-decoration: solid;
+    text-size-adjust: 50%;
+    text-align: center;
 }
 
 .form-success {
-    margin-left: 40%;
     color: rgb(0, 190, 0);
     text-decoration: solid;
+    text-align: center;
 }
 
+form {
+    /* margin-left: auto; */
+    display: flex;
+    flex-direction: column;
+}
+/** ========================================================== */
+
+
+
+/** ======================== Pop-ups ======================== */
 #pop-up-container {
     position: fixed;
     left: 0;
@@ -36,14 +77,29 @@
     color: lightblue;
     width: auto;
 }
+/** ========================================================== */
 
-.center-container {
+
+
+/** ====================== Containers ======================= */
+.flex-center-container {
     display: flex;
     justify-content: center;
-    gap: 5%;
+    align-items: center;
+    gap: 10px;
 }
 
-.tools-buttons {
+.center-container {
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+/** ========================================================= */
+
+
+
+/** ==================== Dashboard page ====================== */
+.dashboard-tool-buttons {
     display: flex;
     gap: 2%;
 }
@@ -60,12 +116,74 @@ table td {
 .btn-small {
     padding: 5px 5px;
     font-size: 15px;
+    margin-right: 0px;
+}
+/** ========================================================= */
+
+
+
+/** =================== Car Info Page ======================= */
+.car_info_upper_part {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
-.error {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: lightcoral;
-    text-align: center;
-    color: brown;
+.itp-update-form {
+    margin-left: auto;
 }
+
+.car_info_upper_part img {
+    width: 60%;
+    height: auto;
+}
+
+.car_info_itp_part form {
+    width: 300px;
+}
+
+.car_info_itp_part table {
+    width: 600px;
+}
+
+.delete-vignette-form {
+    margin-bottom: 0px;
+    margin-left: 0px;
+    width: fit-content;
+}
+
+.delete-vignette-form button[type="submit"] {
+    margin-bottom: 0px;
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.add-vignette-form textarea {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100px;
+    max-height: 300px;
+}
+
+.delete-insurance-form {
+    margin-bottom: 0px;
+    margin-left: 0px;
+    width: fit-content;
+}
+
+.delete-insurance-form button[type="submit"] {
+    margin-bottom: 0px;
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.add-insurance-form textarea {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100px;
+    max-height: 300px;
+}
+/** ========================================================= */

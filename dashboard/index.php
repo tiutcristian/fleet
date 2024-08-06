@@ -9,18 +9,7 @@ $pdo = connect_db();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- main stylesheet -->
-    <link href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" rel="stylesheet">
-    
-    <!-- stylesheet that contains the icons for the buttons in the car table -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <!-- custom stylesheet -->
-    <link rel="stylesheet" href="../css/main.css">
-    
+    <?php require_once '../includes/common-head-content.php'; ?>
     <title>Dashboard</title>
     
     <script>
@@ -38,11 +27,12 @@ $pdo = connect_db();
         }
 
         function redirectToCarDocuments (id) {
-            window.location.href = `../car-documents/index.php?id=${id}`;
+            window.location.href = `../car-info/index.php?id=${id}`;
         }
     </script>
 </head>
 <body>
+    <?php require_once '../includes/navbar.php'; ?>
     <main class="container">
         <div class="grid">
             <section>

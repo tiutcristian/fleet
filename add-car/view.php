@@ -10,13 +10,13 @@ function display_car_inputs (string $role)
         {
             ?>
                 <input type="text" name="username" id="username" placeholder="Username" 
-                value="<?=$_SESSION["car_data"]["username"]?>"> <br>
+                value="<?=$_SESSION["car_data"]["username"]?>">
             <?php
         }
         else
         {
             ?>
-                <input type="text" name="username" id="username" placeholder="Username"> <br>
+                <input type="text" name="username" id="username" placeholder="Username">
             <?php
         }
     }
@@ -25,13 +25,13 @@ function display_car_inputs (string $role)
     {
         ?>
             <input type="text" name="make" id="make" placeholder="Make" 
-            value="<?=$_SESSION["car_data"]["make"]?>"> <br>
+            value="<?=$_SESSION["car_data"]["make"]?>">
         <?php
     }
     else
     {
         ?>
-            <input type="text" name="make" id="make" placeholder="Make"> <br>
+            <input type="text" name="make" id="make" placeholder="Make">
         <?php
     }
 
@@ -40,13 +40,13 @@ function display_car_inputs (string $role)
     {
         ?>
             <input type="text" name="model" id="model" placeholder="Model" 
-            value="<?=$_SESSION["car_data"]["model"]?>"> <br>
+            value="<?=$_SESSION["car_data"]["model"]?>">
         <?php
     }
     else
     {
         ?>
-            <input type="text" name="model" id="model" placeholder="Model"> <br>
+            <input type="text" name="model" id="model" placeholder="Model">
         <?php
     }
 
@@ -57,13 +57,13 @@ function display_car_inputs (string $role)
     {
         ?>
             <input type="text" name="plate_number" id="plate_number" placeholder="License plate" 
-            value="<?=$_SESSION["car_data"]["plate_number"]?>"> <br>
+            value="<?=$_SESSION["car_data"]["plate_number"]?>">
         <?php
     }
     else
     {
         ?>
-            <input type="text" name="plate_number" id="plate_number" placeholder="License plate"> <br>
+            <input type="text" name="plate_number" id="plate_number" placeholder="License plate">
         <?php
     }
     
@@ -74,20 +74,20 @@ function display_car_inputs (string $role)
     {
         ?>
             <input type="text" name="vin" id="vin" placeholder="VIN number" 
-            value="<?=$_SESSION["car_data"]["vin"]?>"> <br>
+            value="<?=$_SESSION["car_data"]["vin"]?>">
         <?php
     }
     else
     {
         ?> 
-            <input type="text" name="vin" id="vin" placeholder="VIN number"> <br>
+            <input type="text" name="vin" id="vin" placeholder="VIN number">
         <?php
     }
 
     // "Image" input
     ?> 
-        Select image to upload:
-        <input type="file" name="fileToUpload" id="fileToUpload"> <br>
+        <label for="fileToUpload" class="custom-file-upload">Choose image to upload</label>
+        <input type="file" name="fileToUpload" id="fileToUpload">
     <?php
 }
 
@@ -114,13 +114,13 @@ function display_add_car_form()
     if (isset($_SESSION["user_id"]))
     {
         ?>
-            <h3>Add a car</h3> <br>
+            <h3>Add a car</h3>
             <form action="handler.php" method="post" enctype="multipart/form-data">
                 <?php display_car_inputs($_SESSION["user_role"]); ?>
                 <input type="submit" value="Add">
             </form>
             <?php display_errors(); ?>
-            <form action="../cars-data/index.php">
+            <form action="../dashboard/index.php">
                 <button class="outline">Back to dashboard</button>
             </form>
         <?php
