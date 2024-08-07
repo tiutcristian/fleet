@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ];
             $_SESSION["car_data"] = $car_data;
             // Redirect to the same page to display errors
-            header("Location: index.php");
+            header("Location: .");
             die();
         }
 
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!$user) {
                 $_SESSION["errors_add_car"]["no_user"] = "User does not exist!";
                 $_SESSION["car_data"]["username"] = $username;
-                header("Location: index.php");
+                header("Location: .");
                 die();
             }
             else
@@ -112,7 +112,7 @@ function handle_image_upload()
         if ($uploadOk) {
             move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
         } else {
-            header("Location: index.php");
+            header("Location: .");
             die();
         }
     }

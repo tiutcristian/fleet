@@ -27,7 +27,7 @@ $pdo = connect_db();
         }
 
         function redirectToCarDocuments (id) {
-            window.location.href = `../car-info/index.php?id=${id}`;
+            window.location.href = `../car-info/?id=${id}`;
         }
     </script>
 </head>

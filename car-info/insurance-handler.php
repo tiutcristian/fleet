@@ -35,7 +35,7 @@ else
         if ($errors)
         {
             $_SESSION["errors_insurance"] = $errors;
-            header("Location: index.php?id=" . $_POST["car-id"]);
+            header("Location: .?id=" . $_POST["car-id"]);
             die();
         }
 
@@ -46,7 +46,7 @@ else
         }
         
         add_insurance($pdo, $_POST["car-id"], $_POST["insurance-type"], $_POST["details"], $_POST["insurance-expiration-date"]);
-        header("Location: index.php?id=" . $_POST["car-id"] . "&insurance=success");
+        header("Location: .?id=" . $_POST["car-id"] . "&insurance=success");
         die();
     }
     catch (PDOException $e)

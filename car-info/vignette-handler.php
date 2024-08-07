@@ -31,12 +31,12 @@ else
         if ($errors)
         {
             $_SESSION["errors_vignette"] = $errors;
-            header("Location: index.php?id=" . $_POST["car-id"]);
+            header("Location: .?id=" . $_POST["car-id"]);
             die();
         }
 
         add_vignette($pdo, $_POST["car-id"], $_POST["country"], $_POST["details"], $_POST["vignette-expiration-date"]);
-        header("Location: index.php?id=" . $_POST["car-id"] . "&vignette=success");
+        header("Location: .?id=" . $_POST["car-id"] . "&vignette=success");
         die();
     }
     catch (PDOException $e) 

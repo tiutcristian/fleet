@@ -21,7 +21,7 @@ else
     try 
     {
         delete_insurance($pdo, $_POST["insurance-id"]);
-        header("Location: index.php?id=" . $_POST["car-id"]);
+        header("Location: .?id=" . $_POST["car-id"]);
         die();
     }
     catch (PDOException $e) 

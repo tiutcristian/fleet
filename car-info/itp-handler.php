@@ -29,12 +29,12 @@ else
         if ($errors)
         {
             $_SESSION["errors_itp"] = $errors;
-            header("Location: index.php?id=" . $_POST["car-id"]);
+            header("Location: .?id=" . $_POST["car-id"]);
             die();
         }
 
         update_itp($pdo, $_POST["car-id"], $_POST["itp-expiration-date"]);
-        header("Location: index.php?id=" . $_POST["car-id"] . "&itp=success");
+        header("Location: .?id=" . $_POST["car-id"] . "&itp=success");
         die();
     }
     catch (PDOException $e)

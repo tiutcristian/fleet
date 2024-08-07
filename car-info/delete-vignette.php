@@ -21,7 +21,7 @@ else
     try 
     {
         delete_vignette($pdo, $_POST["vignette-id"]);
-        header("Location: index.php?id=" . $_POST["car-id"]);
+        header("Location: .?id=" . $_POST["car-id"]);
         die();
     }
     catch (PDOException $e) 

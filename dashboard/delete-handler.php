@@ -12,7 +12,7 @@ try
         unlink($path_to_image);
     }
     delete_car($pdo, $_POST["car-id"], $_SESSION["user_id"], $_SESSION["user_role"]);
-    header("Location: index.php");
+    header("Location: .");
     die();
 }
 catch (PDOException $e) 
