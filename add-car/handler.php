@@ -93,7 +93,7 @@ function handle_image_upload()
         }
 
         // Check file size
-        if ($_FILES["fileToUpload"]["size"] > 500000) {
+        if ($_FILES["fileToUpload"]["size"] > 128 * 1024 * 1024) {
             $_SESSION["errors_add_car"]["file_too_large"] = "Sorry, your file is too large.";
             $uploadOk = 0;
         }
@@ -111,6 +111,9 @@ function handle_image_upload()
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk) {
             move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+        } else {
+            header("Location: index.php");
+            die();
         }
     }
     return "add-car/" . $target_file;
