@@ -55,7 +55,7 @@ function display_cars_table (object $pdo, string $username, string $role)
     }
     else
     {
-        ?> <h3>No cars added</h3> <?php
+        ?> <p>No cars added. Press the button above to add one.</p> <?php
     }   
 }
 
