@@ -57,3 +57,13 @@ function delete_car(object $pdo, int $id, int $user_id, string $role)
     $stmt->bindParam(":id", $id);
     $stmt->execute();
 }
+
+function get_image_by_car_id($pdo, $car_id)
+{
+    $query = "SELECT * FROM cars WHERE id=:id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":id", $car_id);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result["path_to_image"];
+}
