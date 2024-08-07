@@ -70,6 +70,12 @@ function get_insurances_by_car_id(object $pdo, int $car_id)
     return $insurances;
 }
 
+function get_insurance_by_car_id_and_type(object $pdo, int $car_id, $type)
+{
+    $insurances = get_insurances_by_car_id($pdo, $car_id);
+    return $insurances[$type];
+}
+
 function add_insurance(object $pdo, $car_id, $insurance_type, $details, $expiration_date)
 {
     $query = "INSERT INTO insurances (car_id, insurance_type, details, expiration_date) VALUES 

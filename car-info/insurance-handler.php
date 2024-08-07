@@ -31,16 +31,18 @@ else
         {
             $errors["empty_input"] = "Fill in all fields!";
         }
-        if (insurance_type_exists($_POST["insurance-type"], $pdo, $_POST["car-id"]))
-        {
-            $errors["insurance_exists"] = "Insurance already exists!";
-        }
 
         if ($errors)
         {
             $_SESSION["errors_insurance"] = $errors;
             header("Location: index.php?id=" . $_POST["car-id"]);
             die();
+        }
+
+        if (insurance_type_exists($_POST["insurance-type"], $pdo, $_POST["car-id"]))
+        {
+            $insurance = get_insurance_by_car_id_and_type($pdo, $_POST["car-id"], $_POST["insurance-type"]);
+            delete_insurance($pdo, $insurance["id"]);
         }
         
         add_insurance($pdo, $_POST["car-id"], $_POST["insurance-type"], $_POST["details"], $_POST["insurance-expiration-date"]);
