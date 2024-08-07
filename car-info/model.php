@@ -97,3 +97,13 @@ function delete_insurance(object $pdo, int $insurance_id)
     $stmt->execute();
     $stmt = null;
 }
+
+function update_image(object $pdo, int $car_id, $image_path)
+{
+    $query = "UPDATE cars SET path_to_image = :image_path WHERE id = :car_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":image_path", $image_path);
+    $stmt->bindParam(":car_id", $car_id);
+    $stmt->execute();
+    $stmt = null;
+}

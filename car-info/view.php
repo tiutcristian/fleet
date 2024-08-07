@@ -5,7 +5,26 @@ declare(strict_types=1);
 function display_image($car)
 {
     $path_to_image = "../" . $car["path_to_image"];
-    ?> <img src="<?=$path_to_image?>" alt="Image not found"> <?php
+    ?> 
+        <script>
+            function on_image_clicked() {
+                document.getElementById("uploaded-image").click();
+            }
+            function on_form_changed() {
+                document.getElementById("change-image-form").submit();
+            }
+        </script>
+        <img src="<?=$path_to_image?>" alt="Image not found" onclick="on_image_clicked()" style="cursor: pointer;"> 
+        <form action="change-image-handler.php" 
+        enctype="multipart/form-data" 
+        id="change-image-form" 
+        style="display: none;" 
+        onchange="on_form_changed()"
+        method="post"> 
+            <input type="file" name="image" id="uploaded-image">
+            <input type="hidden" name="car-id" value="<?=$car["id"]?>">
+        </form>
+    <?php
 }
 
 /**
