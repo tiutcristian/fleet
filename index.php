@@ -3,7 +3,7 @@ require_once 'includes/config-session.php';
 
 if (isset($_SESSION["user_id"]))
 {
-    header("Location: dashboard/index.php");
+    header("Location: dashboard/");
     die();
 }
 

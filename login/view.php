@@ -36,7 +36,7 @@ function display_login_form()
                 <input type="submit" value="Login">
             </form>
             <?php show_login_errors(); ?>
-            <form action="../index.php">
+            <form action="../">
                 <button class="outline">Go to homepage</button>
             </form>
         <?php 

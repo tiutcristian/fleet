@@ -361,7 +361,7 @@ function display_not_logged_in()
     ?>
         <div class="form-container">
             <p class="error">You are not logged in. <br> Login first.</p>         
-            <form action="../login/index.php" method="post">
+            <form action="../login/" method="post">
                 <input type="submit" value="Login">
             </form>
         </div>

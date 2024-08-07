@@ -6,7 +6,7 @@ $pdo = connect_db();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST")
 {
-    header("Location: ../index.php"); 
+    header("Location: ../"); 
     die();
 }
 elseif (!isset($_SESSION["user_id"]))

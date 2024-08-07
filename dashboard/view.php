@@ -8,7 +8,7 @@ function display_page_content($pdo)
         {
             ?>
                 <div class="dashboard-tool-buttons">
-                    <form action="../add-car/index.php" method="post">
+                    <form action="../add-car/" method="post">
                         <button>Add a car</button>
                     </form>
                 </div>
@@ -20,7 +20,7 @@ function display_page_content($pdo)
             ?>
                 <div class="form-container">
                     <p class="error">You are not logged in. <br> Login first.</p>
-                    <form action="../login/index.php" method="post">
+                    <form action="../login/" method="post">
                         <input type="submit" value="Login">
                     </form>
                 </div>

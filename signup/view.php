@@ -52,7 +52,7 @@ function display_singup_form()
                 <input type="submit" value="Signup">
             </form>
             <?php display_signup_errors(); ?>
-            <form action="../index.php">
+            <form action="../">
                 <button class="outline">Go to homepage</button>
             </form>
         <?php

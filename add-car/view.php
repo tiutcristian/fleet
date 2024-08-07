@@ -120,7 +120,7 @@ function display_add_car_form()
                 <input type="submit" value="Add">
             </form>
             <?php display_errors(); ?>
-            <form action="../dashboard/index.php">
+            <form action="../dashboard/">
                 <button class="outline">Back to dashboard</button>
             </form>
         <?php
@@ -130,7 +130,7 @@ function display_add_car_form()
         unset($_SESSION["errors_add_car"]);
         ?>
             <p class="error">You are not logged in. <br> Login first.</p>         
-            <form action="../login/index.php" method="post">
+            <form action="../login/" method="post">
                 <input type="submit" value="Login">
             </form>
         <?php
