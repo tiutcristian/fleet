@@ -14,13 +14,20 @@ function display_image($car)
                 document.getElementById("change-image-form").submit();
             }
         </script>
-        <img src="<?=$path_to_image?>" alt="Image not found" onclick="on_image_clicked()" style="cursor: pointer;"> 
-        <form action="change-image-handler.php" 
-        enctype="multipart/form-data" 
-        id="change-image-form" 
-        style="display: none;" 
-        onchange="on_form_changed()"
-        method="post"> 
+        <img 
+            src="<?=$path_to_image?>" 
+            alt="Image not found" 
+            onclick="on_image_clicked()" 
+            style="cursor: pointer;"
+        > 
+        <form 
+            action="change-image-handler.php" 
+            enctype="multipart/form-data" 
+            id="change-image-form" 
+            style="display: none;" 
+            onchange="on_form_changed()"
+            method="post"
+        > 
             <input type="file" name="image" id="uploaded-image">
             <input type="hidden" name="car-id" value="<?=$car["id"]?>">
         </form>
@@ -380,9 +387,7 @@ function display_not_logged_in()
     ?>
         <div class="form-container">
             <p class="error">You are not logged in. <br> Login first.</p>         
-            <form action="../login/" method="post">
-                <input type="submit" value="Login">
-            </form>
+            <?php button_link("Login", "../login/", ""); ?>
         </div>
     <?php
 }

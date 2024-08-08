@@ -119,20 +119,18 @@ function display_add_car_form()
                 <?php display_car_inputs($_SESSION["user_role"]); ?>
                 <input type="submit" value="Add">
             </form>
-            <?php display_errors(); ?>
-            <form action="../dashboard/">
-                <button class="outline">Back to dashboard</button>
-            </form>
+            <?php 
+                display_errors();
+                // button_link("Back to dashboard", "../dashboard/", "outline");
+            ?>
         <?php
     }
     else
     {
         unset($_SESSION["errors_add_car"]);
         ?>
-            <p class="error">You are not logged in. <br> Login first.</p>         
-            <form action="../login/" method="post">
-                <input type="submit" value="Login">
-            </form>
+            <p class="error">You are not logged in. <br> Login first.</p>
+            <?php button_link("Login", "../login/", ""); ?>
         <?php
     }
     

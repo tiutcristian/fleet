@@ -36,18 +36,14 @@ function display_login_form()
                 <input type="submit" value="Login">
             </form>
             <?php show_login_errors(); ?>
-            <form action="../">
-                <button class="outline">Go to homepage</button>
-            </form>
+            <?php button_link("Go to homepage", "../", "outline"); ?>
         <?php 
     }
     else 
     { 
         ?>
             <p class="error">You cannot access login page while being logged in.</p>
-            <form action="../login/logout-handler.php" method="post">
-                <input type="submit" value="Logout">
-            </form>
+            <?php button_link("Logout", "../login/logout-handler.php", ""); ?>
         <?php 
     } 
 }

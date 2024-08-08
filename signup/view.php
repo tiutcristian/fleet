@@ -51,19 +51,15 @@ function display_singup_form()
                 <?php signup_inputs(); ?>
                 <input type="submit" value="Signup">
             </form>
-            <?php display_signup_errors(); ?>
-            <form action="../">
-                <button class="outline">Go to homepage</button>
-            </form>
-        <?php
+        <?php 
+        display_signup_errors(); 
+        button_link("Go to homepage", "../", "outline"); 
     }
     else
     {
         ?>
             <p class="error">You cannot access signup page while being logged in.</p>
-            <form action="../login/logout-handler.php" method="post">
-                <input type="submit" value="Logout">
-            </form>
+            <?php button_link("Logout", "../login/logout-handler.php", ""); ?>
         <?php
     }
 }
