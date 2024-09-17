@@ -36,9 +36,13 @@ function display_cars_table (object $pdo, string $username, string $role)
     {
         $result = get_all_cars($pdo);
     }
-    else
+    else if ($role == "user")
     {
         $result = get_user_cars($pdo, $username);
+    }
+    else 
+    {
+        die("Invalid role");
     }
 
     if($result)

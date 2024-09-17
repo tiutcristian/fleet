@@ -1,5 +1,6 @@
 CREATE TABLE users (
     id INT(11) NOT NULL AUTO_INCREMENT,
+    role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
     username VARCHAR(30) NOT NULL,
     pwd VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL,
