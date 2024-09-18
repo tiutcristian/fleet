@@ -72,22 +72,29 @@ function display_table_data($role, $result)
     ?> </tbody> <?php
 }
 
+function display_filters_row($role)
+{
+    ?>
+        <form action="." method="get" id="apply-filters-form">
+            <tr class="hidden-row" id="filters-row">
+                <th><div >Filters</div></th>
+                <?php if($role == "admin") { ?> <th><input type="text" name="owner_username" id="owner_username" class="filter-input"></th> <?php } ?>
+                <th><input type="text" name="make" id="make" class="filter-input" value="<?= $_GET["make"] ?? "" ?>"></th>
+                <th><input type="text" name="model" id="model" class="filter-input" value="<?= $_GET["model"] ?? "" ?>"></th>
+                <th><input type="text" name="vin" id="vin" class="filter-input" value="<?= $_GET["vin"] ?? "" ?>"></th>
+                <th><input type="text" name="plate_number" id="plate_number" class="filter-input" value="<?= $_GET["plate_number"] ?? "" ?>"></th>
+                <th><input type="button" value="Apply" class="filter-input" onclick="apply_filters();"></th>
+            </tr>
+        </form>
+    <?php
+}
+
 function display_table_header($role)
 {
     // pagination with 1 roundtrip to the database
     ?>
         <thead>
-            <form action="." method="get" id="apply-filters-form">
-                <tr class="hidden-row" id="filters-row">
-                    <th><div >Filters</div></th>
-                    <?php if($role == "admin") { ?> <th><input type="text" name="owner_username" id="owner_username" class="hidden-input"></th> <?php } ?>
-                    <th><input type="text" name="make" id="make" class="hidden-input"></th>
-                    <th><input type="text" name="model" id="model" class="hidden-input"></th>
-                    <th><input type="text" name="vin" id="vin" class="hidden-input"></th>
-                    <th><input type="text" name="plate_number" id="plate_number" class="hidden-input"></th>
-                    <th><input type="button" value="Apply" class="hidden-input" onclick="apply_filters();"></th>
-                </tr>
-            </form>
+            <?php display_filters_row($role); ?>
             <tr>
                 <th>Car image</th>
                 <?php if($role == "admin") { ?> <th>Owner</th> <?php } ?>
