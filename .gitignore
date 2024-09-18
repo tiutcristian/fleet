@@ -1,2 +1,2 @@
-# exclude uploads
 uploads
+.DS_Store
