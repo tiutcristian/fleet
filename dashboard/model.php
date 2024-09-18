@@ -2,11 +2,31 @@
 
 declare(strict_types=1);
 
-function get_user_cars_filtered (object $pdo, string $username)
+function get_filteringContraints(): array
 {
-    $query = "SELECT c.* FROM cars c JOIN users u ON c.user_id = u.id WHERE u.username = :username";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(":username", $username);
+    $constraints = array();
+    $fields = array("make", "model", "vin", "plate_number");
+    foreach ($fields as $field)
+    {
+        if (isset($_GET[$field]) && $_GET[$field] != "")
+        {
+            $constraints[$field] = "$field LIKE :$field";
+        }
+    }
+    if (isset($_GET["owner_username"]) && $_GET["owner_username"] != "")
+    {
+        $constraints["owner_username"] = "username LIKE :owner_username";
+    }
+    return $constraints;
+}
+
+function execute_query($stmt, $constraints)
+{
+    foreach ($constraints as $key => $value)
+    {
+        $stmt->bindParam(":$key", $_GET[$key]);
+    }
+
     $stmt->execute();
 
     $result_array = array();
@@ -18,19 +38,40 @@ function get_user_cars_filtered (object $pdo, string $username)
     return $result_array;
 }
 
+function get_user_cars_filtered (object $pdo, string $username)
+{
+    $query = "SELECT c.* FROM cars c JOIN users u ON c.user_id = u.id WHERE u.username = :username";
+
+    $constraints = get_filteringContraints();
+
+    if (count($constraints) > 0)
+    {
+        $query .= " AND ";
+        $query .= implode(" AND ", $constraints);
+    }
+
+    $stmt = $pdo->prepare($query);
+
+    $stmt->bindParam(":username", $username);
+
+    return execute_query($stmt, $constraints);
+}
+
 function get_all_cars_filtered (object $pdo)
 {
     $query = "SELECT cars.*, username FROM cars JOIN users ON cars.user_id = users.id";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
 
-    $result_array = array();
-    while($tmp = $stmt->fetch(PDO::FETCH_ASSOC))
+    $constraints = get_filteringContraints();
+
+    if (count($constraints) > 0)
     {
-        array_push($result_array, $tmp);
+        $query .= " WHERE ";
+        $query .= implode(" AND ", $constraints);
     }
 
-    return $result_array;
+    $stmt = $pdo->prepare($query);
+
+    return execute_query($stmt, $constraints);
 }
 
 function delete_car(object $pdo, int $id, int $user_id, string $role)

@@ -46,18 +46,11 @@ function display_cars_table (object $pdo, string $username, string $role)
         die("Invalid role");
     }
 
-    if($result)
-    {
-        ?>
-            <table role="grid">
-                <?php display_table_data($role, $result); ?>
-            </table>
-        <?php
-    }
-    else
-    {
-        ?> <p>No cars added. Press the button above to add one.</p> <?php
-    }   
+    ?>
+        <table role="grid">
+            <?php display_table_data($role, $result); ?>
+        </table>
+    <?php  
 }
 
 function display_table_data($role, $result)
