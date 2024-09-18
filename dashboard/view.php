@@ -112,7 +112,6 @@ function display_car_row($car, $role)
 {
     ?>
         <tr>
-            <!-- <td>image of the car</td> -->
             <td class="car-img-cell"><img src="../<?=$car["path_to_image"]?>" alt="car"></td>
             <?php if($role == "admin") { ?> <td><?= $car["username"] ?></td> <?php } ?>
             <td><?= $car["make"] ?></td>

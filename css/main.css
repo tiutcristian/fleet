@@ -201,5 +201,7 @@ input.filter-input {
 }
 
 .hidden-row {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
 }

@@ -31,12 +31,23 @@ $pdo = connect_db();
         }
 
         function toggle_filters() {
-            if (document.getElementById("filters-row").style.display != "table-row") {
-                document.getElementById("filters-row").style.display = "table-row";
-                document.getElementById("filters-toggle-button").innerText = "Hide filters";
+            var table = document.getElementById("cars-table");
+            var filtersRow = document.getElementById("filters-row");
+            var filtersToggleButton = document.getElementById("filters-toggle-button");
+            if (filtersRow.style.opacity != "1") {
+                filtersRow.style.visibility = "visible";
+                filtersRow.style.opacity = "1";
+                filtersRow.style.transform = "translateY(0)";
+                filtersRow.style.transition = "opacity 0.5s, transform 0.5s";
+                filtersToggleButton.innerText = "Hide filters";
             } else {
-                document.getElementById("filters-row").style.display = "none";
-                document.getElementById("filters-toggle-button").innerText = "Show filters";
+                filtersRow.style.opacity = "0";
+                filtersRow.style.transform = "translateY(-100%)";
+                filtersRow.style.transition = "opacity 0.5s transform 0.5s";
+                setTimeout(() => {
+                    filtersRow.style.visibility = "hidden";
+                }, 500);
+                filtersToggleButton.innerText = "Show filters";
             }
         }
 
@@ -45,10 +56,7 @@ $pdo = connect_db();
     
             var allInputs = myForm.elements;
 
-            console.log(allInputs);
-
             for (var i = 0; i < allInputs.length; i++) {
-                console.log("a intrat");
                 var input = allInputs[i];
 
                 if (input.name && !input.value) {
