@@ -35,11 +35,11 @@ function display_cars_table (object $pdo, string $username, string $role)
 {
     if($role == "admin")
     {
-        $result = get_all_cars($pdo);
+        $result = get_all_cars_filtered($pdo);
     }
     else if ($role == "user")
     {
-        $result = get_user_cars($pdo, $username);
+        $result = get_user_cars_filtered($pdo, $username);
     }
     else 
     {
