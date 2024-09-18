@@ -29,6 +29,35 @@ $pdo = connect_db();
         function redirectToCarDocuments (id) {
             window.location.href = `../car-info/?id=${id}`;
         }
+
+        function toggle_filters() {
+            if (document.getElementById("filters-row").style.display != "table-row") {
+                document.getElementById("filters-row").style.display = "table-row";
+                document.getElementById("filters-toggle-button").innerText = "Hide filters";
+            } else {
+                document.getElementById("filters-row").style.display = "none";
+                document.getElementById("filters-toggle-button").innerText = "Show filters";
+            }
+        }
+
+        function apply_filters() {
+            var myForm = document.getElementById('apply-filters-form');
+    
+            var allInputs = myForm.elements;
+
+            console.log(allInputs);
+
+            for (var i = 0; i < allInputs.length; i++) {
+                console.log("a intrat");
+                var input = allInputs[i];
+
+                if (input.name && !input.value) {
+                    input.name = '';
+                }
+            }
+        
+            myForm.submit();
+        }
     </script>
 </head>
 <body>

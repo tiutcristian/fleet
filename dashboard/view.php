@@ -9,6 +9,7 @@ function display_page_content($pdo)
             ?>
                 <div class="dashboard-tool-buttons">
                     <?php button_link("Add a car", "../add-car/", ""); ?>
+                    <button id="filters-toggle-button" onclick="toggle_filters();" style="width: auto;">Show filters</button>
                 </div>
             <?php
             display_cars_table($pdo, $_SESSION["user_username"], $_SESSION["user_role"]);
@@ -73,8 +74,20 @@ function display_table_data($role, $result)
 
 function display_table_header($role)
 {
+    // pagination with 1 roundtrip to the database
     ?>
         <thead>
+            <form action="." method="get" id="apply-filters-form">
+                <tr class="hidden-row" id="filters-row">
+                    <th><div >Filters</div></th>
+                    <?php if($role == "admin") { ?> <th><input type="text" name="owner_username" id="owner_username" class="hidden-input"></th> <?php } ?>
+                    <th><input type="text" name="make" id="make" class="hidden-input"></th>
+                    <th><input type="text" name="model" id="model" class="hidden-input"></th>
+                    <th><input type="text" name="vin" id="vin" class="hidden-input"></th>
+                    <th><input type="text" name="plate_number" id="plate_number" class="hidden-input"></th>
+                    <th><input type="button" value="Apply" class="hidden-input" onclick="apply_filters();"></th>
+                </tr>
+            </form>
             <tr>
                 <th>Car image</th>
                 <?php if($role == "admin") { ?> <th>Owner</th> <?php } ?>
@@ -99,13 +112,15 @@ function display_car_row($car, $role)
             <td><?= $car["model"] ?></td>
             <td><?= $car["vin"] ?></td>
             <td><?= $car["plate_number"] ?></td>
-            <td class="table-buttons">
-                <button class="btn-small" onclick="onDelete('<?= $car["plate_number"] ?>', <?= $car["id"] ?>)">
-                    <i class="fa fa-trash"></i>
-                </button>
-                <button class="btn-small" onclick="redirectToCarDocuments(<?= $car["id"] ?>)">
-                    <i class="fa fa-eye"></i>
-                </button>             
+            <td>
+                <div class="table-buttons">
+                    <button class="btn-small" onclick="redirectToCarDocuments(<?= $car["id"] ?>)">
+                        <i class="fa fa-eye"></i>
+                    </button>  
+                    <button class="btn-small" onclick="onDelete('<?= $car["plate_number"] ?>', <?= $car["id"] ?>)">
+                        <i class="fa fa-trash"></i>
+                    </button>           
+                </div>
             </td>
         </tr>
     <?php
