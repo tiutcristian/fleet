@@ -71,7 +71,18 @@ function display_filters_row($role)
         <form action="." method="get" id="apply-filters-form">
             <tr class="hidden-row" id="filters-row">
                 <th><div >Filters</div></th>
-                <?php if($role == "admin") { ?> <th><input type="text" name="owner_username" id="owner_username" class="filter-input"></th> <?php } ?>
+                <?php 
+                    if($role == "admin") 
+                    { 
+                        ?> <th><input 
+                                type="text" 
+                                name="owner_username" 
+                                id="owner_username" 
+                                class="filter-input"
+                                value="<?= $_GET["owner_username"] ?? "" ?>"
+                                ></th> <?php 
+                    } 
+                ?>
                 <th><input type="text" name="make" id="make" class="filter-input" value="<?= $_GET["make"] ?? "" ?>"></th>
                 <th><input type="text" name="model" id="model" class="filter-input" value="<?= $_GET["model"] ?? "" ?>"></th>
                 <th><input type="text" name="vin" id="vin" class="filter-input" value="<?= $_GET["vin"] ?? "" ?>"></th>
