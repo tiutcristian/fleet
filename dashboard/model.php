@@ -1,6 +1,5 @@
 <?php
-
-declare(strict_types=1);
+require_once '../includes/config-session.php';
 
 function get_filteringContraints(): array
 {
@@ -99,4 +98,14 @@ function get_image_by_car_id($pdo, $car_id)
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result["path_to_image"];
+}
+
+function get_total_number_of_cars($pdo)
+{
+    $query = "SELECT COUNT(*) FROM cars";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $_SESSION['no_of_cars'] = $result["COUNT(*)"];
+    return $result["COUNT(*)"];
 }

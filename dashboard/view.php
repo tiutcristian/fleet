@@ -1,4 +1,6 @@
 <?php
+include_once '../includes/config-session.php';
+include_once '../includes/page-button.php';
 
 function display_page_content($pdo)
 {
@@ -33,6 +35,11 @@ function display_page_content($pdo)
 
 function display_cars_table (object $pdo, string $username, string $role)
 {
+    $no_of_cars = $_SESSION['no_of_cars'] ?? get_total_number_of_cars($pdo);
+    $page_size = 3;
+    $no_of_pages = ceil($no_of_cars / $page_size);
+    $page = $_GET["page"] ?? 1;
+
     if($role == "admin")
     {
         $result = get_all_cars_filtered($pdo);
@@ -51,6 +58,53 @@ function display_cars_table (object $pdo, string $username, string $role)
             <?php display_table_data($role, $result); ?>
         </table>
     <?php  
+    display_pagination_buttons($page, $no_of_pages);
+}
+
+function display_pagination_buttons($page, $no_of_pages)
+{
+    ?> 
+        <div class="pagination-container">
+            <?php
+                page_button("outline", $page-1, $page == 1, "<i class='fa fa-arrow-left'></i>");
+                switch ($no_of_pages) {
+                    case 1:
+                        page_button("outline", 1, true, 1);
+                        break;
+
+                    case 2:
+                        page_button(1 == $page ? "outline" : "secondary outline", 1, false, 1);
+                        page_button(2 == $page ? "outline" : "secondary outline", 2, false, 2);
+                        break;
+                    
+                    default:
+                        switch ($page) {
+                            case 1:
+                                page_button("outline", 1, false, 1);
+                                echo "<div>...</div>";
+                                page_button("secondary outline", $no_of_pages, false, $no_of_pages);
+                                break;
+
+                            case $no_of_pages:
+                                page_button("secondary outline", 1, false, 1);
+                                echo "<div>...</div>";
+                                page_button("outline", $no_of_pages, false, $no_of_pages);
+                                break;
+                            
+                            default:
+                                page_button("secondary outline", 1, false, 1);
+                                if($page > 2) echo "<div>...</div>";
+                                page_button("outline", $page, false, $page);
+                                if($page < $no_of_pages - 1) echo "<div>...</div>";
+                                page_button("secondary outline", $no_of_pages, false, $no_of_pages);
+                                break;
+                        }
+                        break;
+                }
+                page_button("outline", $page+1, $page == $no_of_pages, "<i class='fa fa-arrow-right'></i>");
+            ?>
+        </div>
+    <?php
 }
 
 function display_table_data($role, $result)
@@ -95,7 +149,6 @@ function display_filters_row($role)
 
 function display_table_header($role)
 {
-    // pagination with 1 roundtrip to the database
     ?>
         <thead>
             <?php display_filters_row($role); ?>

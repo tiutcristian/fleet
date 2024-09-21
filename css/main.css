@@ -1,8 +1,12 @@
-/** ====================== General ========================== */
-.container-suprem {
-    margin-left: 100px;
-    margin-right: 100px;
+:root{
+    --font-size: 16px;
 }
+
+.container {
+    max-width: 1400px;
+}
+
+/** ====================== General ========================== */
 .error {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -104,13 +108,17 @@ form {
     gap: 2%;
 }
 
+table th{
+    font-size: 1.2em;
+}
+
 table .car-img-cell{
     min-width: 200px;
 }
 
 table td {
     max-width: 200px;
-    font-size: medium;
+    /* font-size: medium; */
 }
 
 .btn-small {
@@ -204,4 +212,19 @@ input.filter-input {
     opacity: 0;
     visibility: hidden;
     transform: translateY(-100%);
+}
+
+/** ========================================================= */
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.page-button{
+    margin: 0 5px; 
+    padding: 5px 15px;
+    max-width: fit-content;
 }
