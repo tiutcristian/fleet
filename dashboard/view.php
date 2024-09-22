@@ -35,11 +35,6 @@ function display_page_content($pdo)
 
 function display_cars_table (object $pdo, string $username, string $role)
 {
-    $no_of_cars = $_SESSION['no_of_cars'] ?? get_total_number_of_cars($pdo);
-    $page_size = 3;
-    $no_of_pages = ceil($no_of_cars / $page_size);
-    $page = $_GET["page"] ?? 1;
-
     if($role == "admin")
     {
         $result = get_all_cars_filtered($pdo);
@@ -52,6 +47,11 @@ function display_cars_table (object $pdo, string $username, string $role)
     {
         die("Invalid role");
     }
+
+    $no_of_cars = $_SESSION['no_of_cars'];
+    $page_size = 10;
+    $no_of_pages = ceil($no_of_cars / $page_size);
+    $page = $_GET["page"] ?? 1;
 
     ?>
         <table role="grid">
