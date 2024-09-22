@@ -35,30 +35,39 @@ function display_page_content($pdo)
 
 function display_cars_table (object $pdo, string $username, string $role)
 {
+    $page_size = 10;
+    $page = $_GET["page"] ?? 1;
+    $offset = ($page - 1) * $page_size;
+    $no_of_cars = 0;
+
     if($role == "admin")
     {
-        $result = get_all_cars_filtered($pdo);
+        $result = get_all_cars_filtered($pdo, $page_size, $offset);
+        $no_of_cars = get_total_number_of_cars_admin($pdo);
     }
     else if ($role == "user")
     {
-        $result = get_user_cars_filtered($pdo, $username);
+        $result = get_user_cars_filtered($pdo, $username, $page_size, $offset);
+        $no_of_cars = get_total_number_of_cars_user($pdo, $username);
     }
     else 
     {
         die("Invalid role");
     }
 
-    $no_of_cars = $_SESSION['no_of_cars'];
-    $page_size = 10;
-    $no_of_pages = ceil($no_of_cars / $page_size);
-    $page = $_GET["page"] ?? 1;
-
     ?>
         <table role="grid">
             <?php display_table_data($role, $result); ?>
         </table>
     <?php  
-    display_pagination_buttons($page, $no_of_pages);
+
+    ?>
+        <div class="pagination-container">
+            <?=$offset + 1?> - <?=min($offset + $page_size, $no_of_cars)?> out of <?=$no_of_cars?> cars
+        </div>
+    <?php
+
+    display_pagination_buttons($page, ceil($no_of_cars / $page_size));
 }
 
 function display_pagination_buttons($page, $no_of_pages)
