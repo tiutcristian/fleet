@@ -3,6 +3,7 @@
 require_once 'model.php';
 require_once '../includes/config-session.php';
 require_once '../includes/db-setup.php';
+require_once '../includes/config.php';
 $pdo = connect_db();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -71,6 +72,7 @@ else
 
 function handle_image_upload()
 {
+    global $config;
     $target_file = get_target_file();
 
     if ($target_file != "uploads/placeholder.png")
@@ -93,7 +95,7 @@ function handle_image_upload()
         }
 
         // Check file size
-        if ($_FILES["fileToUpload"]["size"] > 128 * 1024 * 1024) {
+        if ($_FILES["fileToUpload"]["size"] > $config["max_file_size"]) {
             $_SESSION["errors_add_car"]["file_too_large"] = "Sorry, your file is too large.";
             $uploadOk = 0;
         }

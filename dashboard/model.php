@@ -9,12 +9,12 @@ function get_filtering_contraints(): array
     {
         if (isset($_GET[$field]) && $_GET[$field] != "")
         {
-            $constraints[$field] = "$field LIKE :$field";
+            $constraints[$field] = "$field LIKE CONCAT('%', :$field, '%')";
         }
     }
     if (isset($_GET["owner_username"]) && $_GET["owner_username"] != "")
     {
-        $constraints["owner_username"] = "username LIKE :owner_username";
+        $constraints["owner_username"] = "username LIKE CONCAT('%', :owner_username, '%')";
     }
     return $constraints;
 }

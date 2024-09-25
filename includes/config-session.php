@@ -7,7 +7,6 @@ ini_set('session.use_strict_mode', 1);
 
 session_set_cookie_params (
     [
-        'lifetime' => 1800,
         'domain' => $config["cookie_domain"],
         'path' => '/',
         'secure' => true,
@@ -23,6 +22,14 @@ if ( !isset($_SESSION['last_regeneration']) or
     regenerate_session_id();
 }
 
+if ( isset($_SESSION['last_active']) and
+    time() - $_SESSION['last_active'] >= 60 * 60 * 24 )
+{
+    session_unset();
+    session_destroy(); 
+}
+
+$_SESSION['last_active'] = time();
 
 function regenerate_session_id()
 {
