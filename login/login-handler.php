@@ -44,6 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $_SESSION["user_role"] = htmlspecialchars($result["role"]);
 
         $_SESSION["last_regeneration"] = time();
+
+        update_notifications($pdo, $_SESSION["user_id"]);
         
         header("Location: ../");
         $pdo = null;

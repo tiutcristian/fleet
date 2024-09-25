@@ -4,6 +4,15 @@
     require_once 'button-link.php';
 ?>
 
+<script>
+    function test_fetch()
+    {
+        fetch("<?=$config["base_url"]?>/test.php")
+            .then(response => response.json())
+            .then(data => console.log(data));
+    }
+</script>
+
 <nav class="container-fluid">
     <ul>
         <li><a href="<?=$config["base_url"]?>" class="nav-bar-title">Car Fleet Management</a></li>
@@ -14,6 +23,7 @@
             {
                 ?>
                     <li>Hello, <?=$_SESSION["user_username"]?></li>
+                    <li><button onclick="test_fetch()">Ceva</button></li>
                     <li><?php button_link("Logout", $config["base_url"]."login/logout-handler.php", "outline");?></li>
                 <?php
             }
