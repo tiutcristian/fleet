@@ -13,7 +13,7 @@ function get_car_by_id(object $pdo, int $id)
 
 function update_itp(object $pdo, int $car_id, $expiration_date)
 {
-    $query = "UPDATE cars SET itp_exp_date = :expiration_date WHERE id = :car_id";
+    $query = "UPDATE cars SET itp_exp_date = :expiration_date, itp_notification_sent = 0 WHERE id = :car_id";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":expiration_date", $expiration_date);
     $stmt->bindParam(":car_id", $car_id);

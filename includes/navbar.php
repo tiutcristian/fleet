@@ -23,7 +23,8 @@
             {
                 ?>
                     <li>Hello, <?=$_SESSION["user_username"]?></li>
-                    <li><button onclick="test_fetch()">Ceva</button></li>
+                    <!-- bell icon -->
+                    <li><button class="notif-button" onclick="test_fetch()"><i class="fa fa-bell"></i></button></li>
                     <li><?php button_link("Logout", $config["base_url"]."login/logout-handler.php", "outline");?></li>
                 <?php
             }

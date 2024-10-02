@@ -10,3 +10,9 @@
         "c" => 3
     );
     echo json_encode($arr);
+
+
+    // Plan:
+    // 1. Search for expiring documents
+    // 2. Insert into notifications table
+    // 3. Get all notifications by userid

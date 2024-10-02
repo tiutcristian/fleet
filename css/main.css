@@ -229,3 +229,7 @@ input.filter-input {
     padding: 5px 15px;
     max-width: fit-content;
 }
+
+.notif-button {
+    border-radius: 50%;
+}
