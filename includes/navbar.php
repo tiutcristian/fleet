@@ -1,40 +1,95 @@
 <?php
-    require_once 'config.php';
-    require_once 'config-session.php';
-    require_once 'button-link.php';
+require_once 'config.php';
+require_once 'config-session.php';
+require_once 'button-link.php';
 ?>
 
 <script>
-    function test_fetch()
-    {
-        fetch("<?=$config["base_url"]?>/test.php")
+    function fetch_notifications() {
+        var new_notifications = false;
+        fetch("<?= $config["base_url"] ?>/notifications-handler.php")
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => {
+                var notifications_panel_body = document.querySelector(".notifications-panel-body");
+                notifications_panel_body.innerHTML = "";
+                data.notifications.forEach(notification => {
+                    var notification_div = document.createElement("div");
+                    notification_div.classList.add("notification");
+                    notification_div.innerHTML = notification.message;
+                    if (notification.seen == 0) {
+                        new_notifications = true;
+                        notification_div.classList.add("unseen");
+                        notification_div.setAttribute("data-notification-id", notification.id);
+                        notification_div.addEventListener("click", function() {
+                            mark_notification_seen(notification.id);
+                            this.classList.remove("unseen");
+                        });
+                    }
+                    notifications_panel_body.appendChild(notification_div);
+                });
+            });
+        return new_notifications; // Return true if there are new notifications --> show the red dot
+    }
+
+    function notifications_button_pressed() {
+        fetch_notifications();
+        show_notifications_panel();
+    }
+
+    function mark_notification_seen(notification_id) {
+        fetch("<?= $config["base_url"] ?>/notifications-handler.php?mark_seen=" + notification_id)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    var notification_div = document.querySelector(".notification[data-notification-id='" + notification_id + "']");
+                    notification_div.classList.remove("unseen");
+                }
+            });
+    }
+
+    function hide_notifications_panel() {
+        var notifications_panel = document.querySelector(".notifications-panel-container");
+        notifications_panel.style.transform = "translateX(100%)";
+        notifications_panel.style.transition = "transform 0.5s";
+    }
+
+    function show_notifications_panel() {
+        var notifications_panel = document.querySelector(".notifications-panel-container");
+        notifications_panel.style.transform = "translateX(0)";
+        notifications_panel.style.transition = "transform 0.5s";
     }
 </script>
 
-<nav class="container-fluid">
+<nav class="container-fluid navbar">
     <ul>
-        <li><a href="<?=$config["base_url"]?>" class="nav-bar-title">Car Fleet Management</a></li>
+        <li><a href="<?= $config["base_url"] ?>" class="nav-bar-title">Car Fleet Management</a></li>
     </ul>
     <ul>
         <?php
-            if (isset($_SESSION["user_id"]))
-            {
-                ?>
-                    <li>Hello, <?=$_SESSION["user_username"]?></li>
-                    <!-- bell icon -->
-                    <li><button class="notif-button" onclick="test_fetch()"><i class="fa fa-bell"></i></button></li>
-                    <li><?php button_link("Logout", $config["base_url"]."login/logout-handler.php", "outline");?></li>
-                <?php
-            }
-            else
-            {
-                ?>
-                    <li><?php button_link("Login", $config["base_url"]."login", "outline"); ?></li>
-                    <li><?php button_link("Signup", $config["base_url"]."signup", "outline");?></li>
-                <?php
-            }
+        if (isset($_SESSION["user_id"])) {
+        ?>
+            <li>Hello, <?= $_SESSION["user_username"] ?></li>
+            <li><button class="notif-button" onclick="notifications_button_pressed()"><i class="fa fa-bell"></i></button></li>
+            <li><?php button_link("Logout", $config["base_url"] . "login/logout-handler.php", "outline"); ?></li>
+        <?php
+        } else {
+        ?>
+            <li><?php button_link("Login", $config["base_url"] . "login", "outline"); ?></li>
+            <li><?php button_link("Signup", $config["base_url"] . "signup", "outline"); ?></li>
+        <?php
+        }
         ?>
     </ul>
 </nav>
+
+<div class="notifications-panel-container">
+    <div class="notifications-panel">
+        <div class="notifications-panel-header">
+            <span class="close-notifications-panel-button" onclick="hide_notifications_panel()">Close panel <i class="fa fa-angle-double-right"></i></span>
+            <h3>Notifications</h3>
+        </div>
+        <div class="notifications-panel-body">
+            <!-- Notifications are added here by AJAX -->
+        </div>
+    </div>
+</div>

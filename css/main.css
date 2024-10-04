@@ -19,6 +19,12 @@ form.button-link {
     margin-bottom: 0px;
 }
 
+.navbar{
+    position: fixed;
+    top: 0;
+    background-color: #11191F;
+}
+
 .nav-bar-title {
     font-size: 26px;
     color: inherit;
@@ -26,6 +32,10 @@ form.button-link {
 
 .button-cell{
     width: 80px;
+}
+
+.container {
+    margin-top: 80px;
 }
 /** ========================================================= */
 
@@ -65,7 +75,8 @@ form {
     position: fixed;
     left: 0;
     top: 0;
-    background-color: rgba(255, 255, 255, 0.15);
+    /* background-color: rgba(255, 255, 255, 0.15); */
+    background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     height: 100%;
     display: flex;
@@ -75,11 +86,17 @@ form {
 }
 
 .pop-up {
-    border-radius: 15px;
-    padding: 20px 30px 20px 30px;
+    border-radius: 35px;
+    padding: 25px 35px 15px 35px;
     background-color: #11191F;
     color: lightblue;
     width: auto;
+}
+
+.pop-up button {
+    height: 30px;
+    width: 100px;
+    padding: 0px 0px 0px 0px;
 }
 /** ========================================================== */
 
@@ -233,3 +250,61 @@ input.filter-input {
 .notif-button {
     border-radius: 50%;
 }
+
+/** ==================== Notifications Panel ======================= */
+
+.notifications-panel-container{
+    position: fixed;
+    right: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 400px;
+    height: 100%;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    padding: 35px 35px 35px 35px;
+    transform: translateX(100%);
+}
+
+.close-notifications-panel-button{
+    position: absolute;
+    right: 0;
+    top: 35;
+    color: lightblue;
+    margin-right: 25px;
+}
+
+.close-notifications-panel-button:hover{
+    cursor: pointer;
+}
+
+.notification{
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    background-color: rgb(17, 25, 31);
+    color: lightblue;
+    border-radius: 10px;
+}
+
+.unseen{
+    font-weight: bold;
+    background-color: rgb(33, 48, 59);
+}
+
+.unseen::after{
+    content: "New";
+    color: rgb(17, 25, 31);       
+    background-color: lightblue;
+    border-radius: 50%;        
+    padding: 5px 5px;
+    font-size: 10px;           
+    position: relative;        
+    top: -5px;                 
+    right: -10px;
+}
+
+.unseen:hover{
+    cursor: pointer;
+    background-color: rgba(33, 48, 59, 0.8);
+}
+/** ================================================================= */
