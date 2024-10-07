@@ -45,8 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         $_SESSION["last_regeneration"] = time();
 
-        update_notifications($pdo, $_SESSION["user_id"]);
-        
+        update_notifications(
+            $pdo, 
+            $_SESSION["user_id"], 
+            $_SESSION["user_role"] == "admin"
+        );
+         
         header("Location: ../");
         $pdo = null;
         $stmt = null;
