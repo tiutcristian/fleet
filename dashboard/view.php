@@ -11,7 +11,8 @@ function display_page_content($pdo)
             ?>
                 <div class="dashboard-tool-buttons">
                     <?php button_link("Add a car", "../add-car/", ""); ?>
-                    <button id="filters-toggle-button" onclick="toggle_filters();" style="width: auto;">Show filters</button>
+                    <button id="filters-toggle-button" onclick="toggle_filters();" style="width: auto;" class="outline">Show filters</button>
+                    <?php button_link("Delete all filters", ".", "outline"); ?>
                 </div>
             <?php
             display_cars_table($pdo, $_SESSION["user_username"], $_SESSION["user_role"]);
