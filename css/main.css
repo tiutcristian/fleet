@@ -291,18 +291,6 @@ input.filter-input {
     background-color: rgb(33, 48, 59);
 }
 
-.unseen::after{
-    content: "New";
-    color: rgb(17, 25, 31);       
-    background-color: lightblue;
-    border-radius: 50%;        
-    padding: 5px 5px;
-    font-size: 10px;           
-    position: relative;        
-    top: -5px;                 
-    right: -10px;
-}
-
 .unseen:hover{
     cursor: pointer;
     background-color: rgba(33, 48, 59, 0.8);
