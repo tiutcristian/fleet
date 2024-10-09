@@ -4,16 +4,38 @@
 
     $pdo = connect_db();
 
-    if (isset($_GET["mark_seen"])) {
+    // No direct access allowed
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        header("Location: " . $config["base_url"]);
+        die();
+    }
+    // =========================================
+
+    // Mark notification as seen
+    if (isset($_POST["mark_seen"])) {
+        $id = $_POST["mark_seen"];
+
         $query = "UPDATE notifications SET seen = 1 WHERE id = :id";
         $stmt = $pdo->prepare($query);
-        $stmt->bindParam(":id", $_GET["mark_seen"]);
+        $stmt->bindParam(":id", $id);
         $stmt->execute();
-        
+
         echo json_encode(array("success" => true));
-        exit();
+        die();
+    }
+    // =========================================
+
+    // Delete all notifications
+    if (isset($_POST["delete_all"])) {
+        $query = "DELETE FROM notifications";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        echo json_encode(array("success" => true));
+        die();
     }
 
+    // Fetch notifications
     if (!isset($_SESSION["user_id"])) {
         echo json_encode(array("success" => false));
         header("Location: " . $config["base_url"]);
@@ -33,5 +55,5 @@
     
     $arr = array("notifications" => array_reverse($notifications_array));
     echo json_encode($arr);
-
-    
+    die();
+    // =========================================

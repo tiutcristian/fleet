@@ -7,7 +7,7 @@ require_once 'button-link.php';
 <script>
     function fetch_notifications() {
         var new_notifications = false;
-        fetch("<?= $config["base_url"] ?>/notifications-handler.php")
+        fetch("<?= $config["base_url"] ?>/notifications-handler.php", {method: "POST"})
             .then(response => response.json())
             .then(data => {
                 var notifications_panel_body = document.querySelector(".notifications-panel-body");
@@ -37,14 +37,19 @@ require_once 'button-link.php';
     }
 
     function mark_notification_seen(notification_id) {
-        fetch("<?= $config["base_url"] ?>/notifications-handler.php?mark_seen=" + notification_id)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    var notification_div = document.querySelector(".notification[data-notification-id='" + notification_id + "']");
-                    notification_div.classList.remove("unseen");
-                }
-            });
+        console.log("Marking notification as seen");
+        const data = { mark_seen: notification_id };
+        fetch("<?= $config["base_url"] ?>/notifications-handler.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams(data)
+        })
+        .then(response => response.text())
+        .then(data => { console.log(data); })
+        .catch(error => console.error(error));
+        console.log("Marked notification as seen");
     }
 
     function hide_notifications_panel() {
@@ -57,6 +62,24 @@ require_once 'button-link.php';
         var notifications_panel = document.querySelector(".notifications-panel-container");
         notifications_panel.style.transform = "translateX(0)";
         notifications_panel.style.transition = "transform 0.5s";
+    }
+
+    function delete_all_notifications() {
+        console.log("Deleting all notifications");
+        const data = { delete_all: 1 };
+        fetch("<?= $config["base_url"] ?>/notifications-handler.php", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams(data)
+        })
+            .then(response => response.text())
+            .then(data => { console.log(data); })
+            .catch(error => console.error(error));
+        console.log("Deleted all notifications");
+
+        fetch_notifications();
     }
 </script>
 
@@ -87,6 +110,7 @@ require_once 'button-link.php';
         <div class="notifications-panel-header">
             <span class="close-notifications-panel-button" onclick="hide_notifications_panel()">Close panel <i class="fa fa-angle-double-right"></i></span>
             <h3>Notifications</h3>
+            <div class="delete-all-notifications-button"><button onclick="delete_all_notifications()">Delete all</button></div>
         </div>
         <div class="notifications-panel-body">
             <!-- Notifications are added here by AJAX -->
