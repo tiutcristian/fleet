@@ -50,6 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $_SESSION["user_id"], 
             $_SESSION["user_role"] == "admin"
         );
+
+        $_SESSION["has_unseen_notifications"] = has_unseen_notifications($pdo, $_SESSION["user_id"]);
          
         header("Location: ../");
         $pdo = null;

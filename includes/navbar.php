@@ -6,29 +6,39 @@ require_once 'button-link.php';
 
 <script>
     function fetch_notifications() {
-        var new_notifications = false;
         fetch("<?= $config["base_url"] ?>/notifications-handler.php", {method: "POST"})
             .then(response => response.json())
             .then(data => {
                 var notifications_panel_body = document.querySelector(".notifications-panel-body");
+                var total_unseen = 0;
                 notifications_panel_body.innerHTML = "";
                 data.notifications.forEach(notification => {
                     var notification_div = document.createElement("div");
                     notification_div.classList.add("notification");
                     notification_div.innerHTML = notification.message;
                     if (notification.seen == 0) {
-                        new_notifications = true;
+                        total_unseen++;
                         notification_div.classList.add("unseen");
                         notification_div.setAttribute("data-notification-id", notification.id);
                         notification_div.addEventListener("click", function() {
                             mark_notification_seen(notification.id);
+                            total_unseen--;
+                            if (total_unseen == 0) {
+                                remove_notification_dot();
+                            }
                             this.classList.remove("unseen");
                         });
                     }
                     notifications_panel_body.appendChild(notification_div);
                 });
             });
-        return new_notifications; // Return true if there are new notifications --> show the red dot
+    }
+
+    function remove_notification_dot() {
+        var notifications_button_red_dot = document.querySelector("#notifications-button-red-dot");
+        if (notifications_button_red_dot) {
+            notifications_button_red_dot.remove();
+        }
     }
 
     function notifications_button_pressed() {
@@ -77,6 +87,9 @@ require_once 'button-link.php';
             .then(response => response.text())
             .then(data => { console.log(data); })
             .catch(error => console.error(error));
+        var notifications_panel_body = document.querySelector(".notifications-panel-body");
+        notifications_panel_body.innerHTML = "";
+        remove_notification_dot();
         console.log("Deleted all notifications");
 
         fetch_notifications();
@@ -92,7 +105,18 @@ require_once 'button-link.php';
         if (isset($_SESSION["user_id"])) {
         ?>
             <li>Hello, <?= $_SESSION["user_username"] ?></li>
-            <li><button class="notif-button" onclick="notifications_button_pressed()"><i class="fa fa-bell"></i></button></li>
+            <li style="position: relative;">
+                <button class="notif-button" onclick="notifications_button_pressed()">
+                    <i class="fa fa-bell"></i>
+                </button>
+                <?php
+                    if ($_SESSION["has_unseen_notifications"]) {
+                        ?>
+                            <div class="red-dot" id="notifications-button-red-dot"></div>
+                        <?php
+                    }
+                ?>
+            </li>
             <li><?php button_link("Logout", $config["base_url"] . "login/logout-handler.php", "outline"); ?></li>
         <?php
         } else {
@@ -112,7 +136,7 @@ require_once 'button-link.php';
             <h3>Notifications</h3>
             <div class="delete-all-notifications-button"><button onclick="delete_all_notifications()">Delete all</button></div>
         </div>
-        <div class="notifications-panel-body">
+        <div class="notifications-panel-body" id="notifications-panel-body">
             <!-- Notifications are added here by AJAX -->
         </div>
     </div>

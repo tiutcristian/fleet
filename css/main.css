@@ -295,4 +295,14 @@ input.filter-input {
     cursor: pointer;
     background-color: rgba(33, 48, 59, 0.8);
 }
+
+.red-dot{
+    background-color: orangered;
+    height: 12px;
+    width: 12px;
+    top: 17px;
+    right: 10px;
+    position: absolute;
+    border-radius: 50%;
+}
 /** ================================================================= */
