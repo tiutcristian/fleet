@@ -16,19 +16,46 @@ require_once 'button-link.php';
                     var notification_div = document.createElement("div");
                     notification_div.classList.add("notification");
                     notification_div.innerHTML = notification.message;
+                    //! Append span child for message
                     if (notification.seen == 0) {
                         total_unseen++;
                         notification_div.classList.add("unseen");
                         notification_div.setAttribute("data-notification-id", notification.id);
-                        notification_div.addEventListener("click", function() {
+                        notification_div.addEventListener("click", function(ev) {
                             mark_notification_seen(notification.id);
                             total_unseen--;
                             if (total_unseen == 0) {
                                 remove_notification_dot();
                             }
                             this.classList.remove("unseen");
+                            ev.stopPropagation();
                         });
                     }
+                    var delete_button = document.createElement("button");
+                    delete_button.innerHTML = "Delete";
+                    delete_button.addEventListener("click", function(ev) {
+                        ev.stopPropagation();
+                        var notification_id = notification_div.getAttribute("data-notification-id");
+                        const data = { delete: notification_id };
+                        fetch("<?= $config["base_url"] ?>/notifications-handler.php", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            body: new URLSearchParams(data)
+                        })
+                        .then(response => response.text())
+                        .then(data => { console.log(data); })
+                        .catch(error => console.error(error));
+                        if (notification_div.classList.contains("unseen")) {
+                            total_unseen--;
+                            if (total_unseen == 0) {
+                                remove_notification_dot();
+                            }
+                        }
+                        notification_div.remove();
+                    });
+                    notification_div.appendChild(delete_button);
                     notifications_panel_body.appendChild(notification_div);
                 });
             });

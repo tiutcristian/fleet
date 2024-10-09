@@ -29,6 +29,23 @@
     }
     // =========================================
 
+    // Delete notification
+    if (isset($_POST["delete"])) {
+        $id = $_POST["delete"];
+
+        $query = "DELETE FROM notifications WHERE id = :id AND user_id = :user_id";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":user_id", $_SESSION["user_id"]);
+        $stmt->execute();
+
+        $_SESSION["has_unseen_notifications"] = has_unseen_notifications($pdo, $_SESSION["user_id"]);
+
+        echo json_encode(array("success" => true));
+        die();
+    }
+    // =========================================
+
     // Delete all notifications
     if (isset($_POST["delete_all"])) {
         $query = "DELETE FROM notifications WHERE user_id = :user_id";
