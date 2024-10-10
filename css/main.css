@@ -284,6 +284,8 @@ input.filter-input {
     background-color: rgb(17, 25, 31);
     color: lightblue;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .unseen{
@@ -305,4 +307,21 @@ input.filter-input {
     position: absolute;
     border-radius: 50%;
 }
+
+.delete-all-notifications-button > button{
+    height: 30px;
+    padding-top: 2px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.delete-notification-button{
+    height: 30px;
+    width: 30px;
+    padding-top: 2px;
+    padding-left: 8px;
+    background-color: rgba(0, 0, 0, 0);
+    margin-left: 10px;
+    border-radius: 50%;
+}
+
 /** ================================================================= */

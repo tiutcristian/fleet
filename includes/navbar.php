@@ -15,8 +15,11 @@ require_once 'button-link.php';
                 data.notifications.forEach(notification => {
                     var notification_div = document.createElement("div");
                     notification_div.classList.add("notification");
-                    notification_div.innerHTML = notification.message;
-                    //! Append span child for message
+
+                    var message_span = document.createElement("span");
+                    message_span.innerHTML = notification.message;
+                    notification_div.appendChild(message_span);
+
                     if (notification.seen == 0) {
                         total_unseen++;
                         notification_div.classList.add("unseen");
@@ -31,8 +34,10 @@ require_once 'button-link.php';
                             ev.stopPropagation();
                         });
                     }
+
                     var delete_button = document.createElement("button");
-                    delete_button.innerHTML = "Delete";
+                    delete_button.innerHTML = "<i class='fa fa-trash'></i>";
+                    delete_button.classList.add("delete-notification-button");
                     delete_button.addEventListener("click", function(ev) {
                         ev.stopPropagation();
                         var notification_id = notification_div.getAttribute("data-notification-id");
@@ -55,7 +60,9 @@ require_once 'button-link.php';
                         }
                         notification_div.remove();
                     });
+
                     notification_div.appendChild(delete_button);
+
                     notifications_panel_body.appendChild(notification_div);
                 });
             });
@@ -161,7 +168,7 @@ require_once 'button-link.php';
         <div class="notifications-panel-header">
             <span class="close-notifications-panel-button" onclick="hide_notifications_panel()">Close panel <i class="fa fa-angle-double-right"></i></span>
             <h3>Notifications</h3>
-            <div class="delete-all-notifications-button"><button onclick="delete_all_notifications()">Delete all</button></div>
+            <div class="delete-all-notifications-button"><button onclick="delete_all_notifications()">Delete all notifications</button></div>
         </div>
         <div class="notifications-panel-body" id="notifications-panel-body">
             <!-- Notifications are added here by AJAX -->
