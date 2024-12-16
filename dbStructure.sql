@@ -1,6 +1,7 @@
 -- Drop all tables
 DROP TABLE IF EXISTS insurances;
 DROP TABLE IF EXISTS vignettes;
+DROP TABLE IF EXISTS notifications;
 DROP TABLE IF EXISTS cars;
 DROP TABLE IF EXISTS users;
 -- ========================================
@@ -32,6 +33,18 @@ CREATE TABLE cars (
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
+CREATE TABLE notifications (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    user_id INT(11) NOT NULL,
+    car_id INT(11),
+    message TEXT NOT NULL,
+    seen BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (car_id) REFERENCES cars(id) ON DELETE CASCADE,
+    INDEX (user_id)
+);
+
 CREATE TABLE vignettes (
 	id INT(11) NOT NULL AUTO_INCREMENT,
     car_id INT(11) NOT NULL,
@@ -51,14 +64,4 @@ CREATE TABLE insurances (
     PRIMARY KEY (id),
     FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE
 );
--- ========================================
-
-
-
--- Insert admin and user
-INSERT INTO `users`(`role`, `username`, `pwd`, `email`) 
-VALUES ('user','user','$2y$12$IfAvcAQYyIrmms.mM0HITOXiMIsYDRzXca4OhDKyr8k5sW108HlUi','user@user.com');
-
-INSERT INTO `users`(`role`, `username`, `pwd`, `email`) 
-VALUES ('admin','admin','$2y$12$j50n9BLTNv0oCd2Wf0I8NuCOWtWPqgNiiUj3f1kmuTIcSgLxYlMrK','admin@admin.com');
 -- ========================================

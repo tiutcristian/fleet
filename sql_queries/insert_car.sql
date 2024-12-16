@@ -1,1 +1,0 @@
-INSERT INTO cars (make, model, plate_number, user_id, vin) VALUES ();
