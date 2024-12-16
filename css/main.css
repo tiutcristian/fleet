@@ -308,8 +308,14 @@ input.filter-input {
     border-radius: 50%;
 }
 
+.delete-all-notifications-button {
+    display: flex;
+    justify-content: center;
+}
+
 .delete-all-notifications-button > button{
     height: 30px;
+    width: fit-content;
     padding-top: 2px;
     background-color: rgba(0, 0, 0, 0);
 }
