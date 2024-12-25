@@ -25,6 +25,7 @@ Fleet is a car fleet management system that allows companies to manage their car
 
 ## Screenshots
 - Dashboard
+
 <img
     src="assets/images/screenshots/dashboard.png"
     alt="Dashboard" 
@@ -36,6 +37,7 @@ Fleet is a car fleet management system that allows companies to manage their car
 ---
 
 - Notifications panel
+
 <img
     src="assets/images/screenshots/notifications.png"
     alt="Notifications" 
@@ -47,6 +49,7 @@ Fleet is a car fleet management system that allows companies to manage their car
 ---
 
 - Filters
+
 <img
     src="assets/images/screenshots/filters.png"
     alt="Filters" 
@@ -58,6 +61,7 @@ Fleet is a car fleet management system that allows companies to manage their car
 ---
 
 - Car Documents page
+
 <img
     src="assets/images/screenshots/documents.png"
     alt="Documents" 
