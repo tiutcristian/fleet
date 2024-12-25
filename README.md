@@ -1,16 +1,4 @@
-<img 
-    src="assets/images/logos/fleet-logo2.jpeg" 
-    alt="Logo" 
-    style=" display: block; 
-            margin: 0 auto; 
-            border-radius: 50px; 
-            height: 150px;"
-/>
-
-<center>
-    <h3> Car Fleet Management System </h3> 
-</center>
-
+# Fleet - Car Fleet Management System
 
 ## Introduction
 Fleet is a car fleet management system that allows companies to manage their car fleet (add, remove, update and search for cars) and get notifications about expiring documents (insurance, technical inspection, etc.).
